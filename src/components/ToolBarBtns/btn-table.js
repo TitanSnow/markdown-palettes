@@ -65,5 +65,6 @@ export default {
                 return outputString
             }
         }
-    }
+    },
+    keyBinding: 'Ctrl-F12'
 }

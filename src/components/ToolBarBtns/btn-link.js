@@ -24,5 +24,6 @@ export default {
                 return '[' + data.description + '](' + data.url + ')'
             }
         }
-    }
+    },
+    keyBinding: 'Ctrl-K'
 }
