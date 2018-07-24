@@ -14,12 +14,12 @@
                     <form
                         class="mp-dialog-body"
                         @submit.prevent="finish">
-                        <dialog-form
-                            v-if="request.type === 'form'"
+                        <dialog-tab
+                            v-if="request.type === 'tab'"
                             :fields="request.body"
                             v-model="responseData"/>
-                        <dialog-tab
-                            v-else-if="request.type === 'tab'"
+                        <dialog-form
+                            v-else
                             :fields="request.body"
                             v-model="responseData"/>
 
