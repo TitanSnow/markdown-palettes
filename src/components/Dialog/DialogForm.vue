@@ -56,7 +56,7 @@ export default {
 
 <style scoped>
     .mp-dialog-field {
-        margin: 10px 8px;
+        margin-bottom: 5px;
         overflow:auto;
     }
 </style>

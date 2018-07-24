@@ -1,7 +1,6 @@
 <template>
     <div class="mp-dialog-input">
-        <label>{{ title }}</label>
-        <input v-model="value">
+        <label @focusin="focused = true" @focusout="focused = false" :class="focused ? 'focused' : ''"><span>{{ title }}</span><input v-model="value" :placeholder="placeholder"></label>
     </div>
 </template>
 
@@ -10,22 +9,41 @@
         overflow: auto;
     }
 
-    .mp-dialog-input label {
-        float: left;
-        padding-top: 5px;
-        vertical-align: top;
-        margin-right: 10px;
-        width: 20%;
-        font-size: 14px;
+    .mp-dialog-input > label {
+        box-sizing: border-box;
+        width: 100%;
+        color: #999;
+        padding: 5px;
+        border: none;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        transition: border-bottom 100ms ease-out;
+    }
+    .mp-dialog-input > label.focused {
+        border-bottom: 1px solid #666;
+    }
+    .mp-dialog-input > label.focused > span {
         color: #666;
     }
-
-    .mp-dialog-input input {
-        float: left;
-        width: 70%;
+    .mp-dialog-input > label > span {
+        width: 20%;
+        transition: color 100ms ease-out;
+    }
+    .mp-dialog-input > label > input {
+        width: 80%;
+        padding: 0;
+        border: none;
+        color: #000;
+        font: inherit;
+    }
+    .mp-dialog-input > label > input:focus {
+        outline: none;
+    }
+    .mp-dialog-input > label > input::placeholder {
         color: #999;
-        padding: 8px;
-        border: 1px solid #ddd;
+    }
+    .mp-dialog-input > label > input:focus::placeholder {
+        color: #666;
     }
 </style>
 
@@ -34,6 +52,16 @@ import AbstractDialogComponent from './AbstractDialogFormComponent'
 
 export default {
     name: 'dialog-input',
-    extends: AbstractDialogComponent
+    extends: AbstractDialogComponent,
+    data () {
+        return {
+            focused: false
+        }
+    },
+    computed: {
+        placeholder () {
+            return this.param ? this.param.placeholder ? this.param.placeholder : '' : ''
+        }
+    }
 }
 </script>

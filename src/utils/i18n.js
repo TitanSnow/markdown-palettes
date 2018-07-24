@@ -42,8 +42,8 @@ export const dictionary = new Map([
     ])]
 ])
 
-export function getText (text) {
-    for (const language of navigator.languages) {
+export function getText (text, languages = navigator.languages) {
+    for (const language of languages) {
         for (const [langReg, textMapping] of dictionary) {
             if (langReg.test(language)) {
                 let result
@@ -73,4 +73,15 @@ export function getText (text) {
         }
     }
     return text
+}
+
+export function getCurrentLanguage (languages = navigator.languages) {
+    for (const language of languages) {
+        for (const [langReg] of dictionary) {
+            if (langReg.test(language)) {
+                return language
+            }
+        }
+    }
+    return null
 }

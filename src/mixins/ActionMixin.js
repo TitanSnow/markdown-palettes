@@ -46,9 +46,6 @@ export default {
             this.closeDialog()
         },
         requestData (request) {
-            if (this.showDialog) {
-                return
-            }
             this.openDialog(request)
         }
     }

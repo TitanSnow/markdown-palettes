@@ -1,123 +1,83 @@
 <template>
-    <div class="mp-editor-dialog">
-        <div class="mp-dialog-mask">
-            <div class="mp-dialog-wrapper">
-                <div class="mp-dialog-container">
+    <div class="mp-dialog-wrapper">
+        <form class="mp-dialog-container" @submit.prevent="finish">
 
-                    <div class="mp-dialog-header">
-                        <strong>{{ t(request.title) }}</strong>
-                        <a
-                            class="fa fa-times mp-dialog-close"
-                            @click="close"/>
-                    </div>
-
-                    <form
-                        class="mp-dialog-body"
-                        @submit.prevent="finish">
-                        <dialog-tab
-                            v-if="request.type === 'tab'"
-                            :fields="request.body"
-                            v-model="responseData"/>
-                        <dialog-form
-                            v-else
-                            :fields="request.body"
-                            v-model="responseData"/>
-
-                        <div class="mp-dialog-footer">
-                            <div>
-                                <button
-                                    class="mp-dialog-button"
-                                    type="button"
-                                    @click="close">{{ t('取消') }}</button>
-                                <button
-                                    class="mp-dialog-button"
-                                    type="submit"
-                                    style="margin-right: 7px">{{ t('确定') }}</button>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
+            <div class="mp-dialog-header">
+                <button type="button" class="mp-dialog-button" @click="close">{{ t('取消') }}</button>
+                <span>{{ t(request.title) }}</span>
+                <button type="submit" class="mp-dialog-button">{{ t('确定') }}</button>
             </div>
-        </div>
+
+            <div class="mp-dialog-body">
+                <dialog-tab
+                    v-if="request.type === 'tab'"
+                    :fields="request.body"
+                    v-model="responseData"/>
+                <dialog-form
+                    v-else
+                    :fields="request.body"
+                    v-model="responseData"/>
+            </div>
+
+        </form>
     </div>
 </template>
 
 <style scoped>
-    .mp-dialog-mask {
-        position: fixed;
-        z-index: 9998;
+    @keyframes dialog-enter {
+        from {
+            transform: translateY(-100px);
+        }
+        to {
+            transform: initial;
+        }
+    }
+    .mp-dialog-wrapper {
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, .5);
-        display: table;
-        transition: opacity .3s ease;
+        pointer-events: none;
+        z-index: 9999;
+        overflow: hidden;
     }
-
-    .mp-dialog-wrapper {
-        display: table-cell;
-        vertical-align: middle;
-    }
-
     .mp-dialog-container {
+        pointer-events: initial;
         width: 500px;
         margin: 0 auto;
         background-color: #fff;
-        border-radius: 2px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+        box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
         transition: all .3s ease;
         font-family: Helvetica, Arial, sans-serif;
+        border: 1px solid #ddd;
+        border-top: none;
+        animation: dialog-enter 200ms;
     }
     .mp-dialog-header {
-        padding: 11px 20px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .dialog-header strong {
-        color: #666;
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 8px;
+        border-bottom: 1px solid #ddd;
+        background-color: #f7f7f7;
     }
 
     .mp-dialog-body {
-        padding: 20px 30px;
-        padding-bottom: 10px;
+        padding: 8px;
     }
 
-    .mp-dialog-footer {
-        overflow:auto;
-    }
-
-    .mp-dialog-button {
+    .mp-dialog-header > .mp-dialog-button {
+        background-color: transparent;
         display: inline-block;
-        float: right;
-        color: #666;
         min-width: 75px;
         cursor: pointer;
-        background: #fff;
-        padding: 7px 10px;
-        border: 1px solid #ddd;
-        border-radius: 3px;
+        border: none;
+        transition: background-color 100ms ease-out;
+        color: #666;
+        font: inherit;
+        font-size: .7em;
     }
-
-    .mp-dialog-enter {
-        opacity: 0;
-    }
-
-    .mp-dialog-leave-active {
-        opacity: 0;
-    }
-
-    .mp-dialog-enter .mp-dialog-container,
-    .mp-dialog-leave-active .mp-dialog-container {
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
-    }
-
-    .mp-dialog-close {
-        font-size: 18px;
-        color: #ccc;
-        float: right;
+    .mp-dialog-button:hover {
+        background-color: #eee;
     }
 </style>
 
