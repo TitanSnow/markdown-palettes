@@ -9,8 +9,8 @@
             <div
                 ref="dialogBody"
                 class="mp-dialog-body"
-                @keydown.27="close"
-                @keydown.enter="finish">
+                @keydown.27.prevent="close"
+                @keydown.enter.prevent="finish">
                 <dialog-tab
                     v-if="request.type === 'tab'"
                     :fields="request.body"

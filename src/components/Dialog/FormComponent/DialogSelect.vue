@@ -19,8 +19,7 @@
                 <span class="primary-title">
                     <span v-if="item.titleTokens"><span
                         v-for="(token, idx) in item.titleTokens"
-                        :class="token[1] ? 'match' : ''"
-                        :key="idx + ',' + token.join()">{{ token[0] }}</span></span>
+                        :class="token[1] ? 'match' : ''">{{ token[0] }}</span></span>
                     <span v-else>{{ item.title }}</span>
                 </span><br>
                 <span
@@ -28,8 +27,7 @@
                     class="en-title">
                     <span v-if="item.enTitleTokens"><span
                         v-for="token in item.enTitleTokens"
-                        :class="token[1] ? 'match' : ''"
-                        :key="token.join()">{{ token[0] }}</span></span>
+                        :class="token[1] ? 'match' : ''">{{ token[0] }}</span></span>
                     <span v-else>{{ item.enTitle }}</span>
                 </span>
             </li>
