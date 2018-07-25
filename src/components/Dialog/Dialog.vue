@@ -6,17 +6,6 @@
             @keydown.27.prevent="close"
             @keydown.enter.prevent="finish">
 
-            <div class="mp-dialog-header">
-                <button
-                    type="button"
-                    class="mp-dialog-button"
-                    @click="close">{{ t('取消') }}</button>
-                <span>{{ t(request.title) }}</span>
-                <button
-                    type="submit"
-                    class="mp-dialog-button">{{ t('确定') }}</button>
-            </div>
-
             <div
                 ref="dialogBody"
                 class="mp-dialog-body">
@@ -28,6 +17,17 @@
                     v-else
                     :fields="request.body"
                     v-model="responseData"/>
+            </div>
+
+            <div class="mp-dialog-header">
+                <button
+                    type="button"
+                    class="mp-dialog-button"
+                    @click="close">{{ t('取消') }}</button>
+                <span>{{ t(request.title) }}</span>
+                <button
+                    type="submit"
+                    class="mp-dialog-button">{{ t('确定') }}</button>
             </div>
 
         </form>
@@ -63,6 +63,8 @@
         border: 1px solid #ddd;
         border-top: none;
         animation: dialog-enter 200ms;
+        display: flex;
+        flex-direction: column-reverse;
     }
     .mp-dialog-header {
         display: flex;
