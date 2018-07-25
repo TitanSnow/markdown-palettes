@@ -151,7 +151,7 @@ export default {
                 firstTabstop.focus()
         },
         formFocusout () {
-            this.pendingClose = window.setTimeout(() => void this.close(), 50)
+            this.pendingClose = window.setTimeout(() => void this.close(), 100)
         },
         formFocusin () {
             if (this.pendingClose != null){

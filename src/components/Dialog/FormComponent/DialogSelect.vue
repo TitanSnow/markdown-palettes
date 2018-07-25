@@ -167,11 +167,17 @@ export default {
                 window.setTimeout(() => {
                     if (!this.focused) {
                         if (this.selectedItem != null) {
+                            const value = this.selectedItem.value
                             this.inputValue = this.selectedItem.title
+                            this.filteredOptions.forEach(({ value: optValue }, idx) => {
+                                if (optValue === value) {
+                                    this.selectedId = idx
+                                }
+                            })
                         }
                         this.showOptions = this.autoopen
                     }
-                }, 50)
+                }, 100)
             } else {
                 this.showOptions = true
             }
