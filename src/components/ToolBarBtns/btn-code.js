@@ -1,5 +1,5 @@
 export default {
-    name: 'img',
+    name: 'code',
     icon: 'fa-code',
     title: '插入代码',
     action () {

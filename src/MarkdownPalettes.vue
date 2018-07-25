@@ -9,7 +9,8 @@
                 <li
                     v-for="(item, index) in toolbarBtns"
                     :class="{'mp-divider':item.name === '|'}"
-                    :key="item.name + index">
+                    :key="item.name + index"
+                    v-if="item.type == null || item.type === 'button'">
                     <span v-if="item.name === '|'">|</span>
                     <a
                         v-else

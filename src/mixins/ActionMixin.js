@@ -52,6 +52,10 @@ export default {
         },
         requestData (request) {
             this.openDialog(request)
+        },
+        execCommand (name) {
+            const [btn] = this.toolbarConfig.filter(({ name: btnName }) => btnName === name)
+            if (btn) this.toolbarAction(btn)
         }
     }
 }
