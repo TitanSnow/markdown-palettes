@@ -1,7 +1,6 @@
 <template>
     <div
-        :class="focused ? 'focused' : ''"
-        class="mp-dialog-select"
+        :class="{ 'mp-dialog-select': true, focused }"
         @keydown.up.prevent="moveSelection(-1)"
         @keydown.down.prevent="moveSelection(1)"
         @focusin="focused = true"
@@ -10,7 +9,7 @@
             ref="dialogInput"
             :request-field="{ title: requestField.title, param: { placeholder: t('检索…') } }"
             v-model="inputValue"/>
-        <ul>
+        <ul v-show="showOptions">
             <li
                 v-for="(item, idx) in filteredOptions"
                 :key="item.title + '\uFFFE' + item.value"
@@ -19,9 +18,9 @@
                 <i class="fa fa-angle-right"/>
                 <span class="primary-title">
                     <span v-if="item.titleTokens"><span
-                        v-for="token in item.titleTokens"
+                        v-for="(token, idx) in item.titleTokens"
                         :class="token[1] ? 'match' : ''"
-                        :key="token.join()">{{ token[0] }}</span></span>
+                        :key="idx + ',' + token.join()">{{ token[0] }}</span></span>
                     <span v-else>{{ item.title }}</span>
                 </span><br>
                 <span
@@ -74,6 +73,7 @@ import AbstractDialogComponent from './AbstractDialogFormComponent'
 import DialogInput from './DialogInput.vue'
 import { getCurrentLanguage } from '../../../utils/i18n'
 import Fuse from 'fuse.js'
+import _ from 'lodash'
 
 export default {
     name: 'dialog-select',
@@ -84,7 +84,7 @@ export default {
             inputValue: this.value,
             selectedId: null,
             focused: false,
-
+            showOptions: this.autoopen
         }
     },
     computed: {
@@ -138,12 +138,42 @@ export default {
                 shouldSort: true,
                 keys
             })
+        },
+        selectedItem () {
+            if (this.selectedId != null && this.selectedId < this.filteredOptions.length)
+                return this.filteredOptions[this.selectedId]
+            else
+                return null
+        },
+        selectedValue () {
+            const item = this.selectedItem
+            if (item != null) return item.value
         }
     },
     watch: {
         inputValue () {
             if (this.selectedId == null) {
                 this.selectedId = 0
+            }
+        },
+        selectedValue (val) {
+            this.value = val
+        },
+        value (val) {
+            this.selectValue(val)
+        },
+        focused (val) {
+            if (val === false) {
+                window.setTimeout(() => {
+                    if (!this.focused) {
+                        if (this.selectedItem != null) {
+                            this.inputValue = this.selectedItem.title
+                        }
+                        this.showOptions = this.autoopen
+                    }
+                }, 50)
+            } else {
+                this.showOptions = true
             }
         }
     },
@@ -158,6 +188,20 @@ export default {
                     this.selectedId += len
                 }
                 this.selectedId %= len
+            }
+        },
+        selectValue (value) {
+            if (value == null) this.selectedId = null
+            else {
+                let idx = _.findIndex(this.filteredOptions, ({ value: optValue }) => optValue === value)
+                if (idx === -1) {
+                    this.inputValue = ''
+                    idx = _.findIndex(this.param.options, ({ value: optValue }) => optValue === value)
+                    if (idx === -1) {
+                        idx = null
+                    }
+                }
+                this.selectedId = idx
             }
         },
         clickIdx (idx) {
