@@ -2,13 +2,13 @@
     <div class="mp-dialog-wrapper">
         <form
             class="mp-dialog-container"
-            @submit.prevent="finish"
-            @keydown.27.prevent="close"
-            @keydown.enter.prevent="finish">
+            @submit.prevent="finish">
 
             <div
                 ref="dialogBody"
-                class="mp-dialog-body">
+                class="mp-dialog-body"
+                @keydown.27="close"
+                @keydown.enter="finish">
                 <dialog-tab
                     v-if="request.type === 'tab'"
                     :fields="request.body"
