@@ -2,7 +2,9 @@
     <div class="mp-dialog-wrapper">
         <form
             class="mp-dialog-container"
-            @submit.prevent="finish">
+            @submit.prevent="finish"
+            @focusout="formFocusout"
+            @focusin="formFocusin">
 
             <div
                 ref="dialogBody"
@@ -119,7 +121,8 @@ export default {
             }
         })
         return {
-            responseData: initialData
+            responseData: initialData,
+            pendingClose: null
         }
     },
     computed: {
@@ -146,6 +149,15 @@ export default {
             const [firstTabstop] = tabbable(this.$refs.dialogBody)
             if (firstTabstop)
                 firstTabstop.focus()
+        },
+        formFocusout () {
+            this.pendingClose = window.setTimeout(() => void this.close(), 50)
+        },
+        formFocusin () {
+            if (this.pendingClose != null){
+                window.clearTimeout(this.pendingClose)
+                this.pendingClose = null
+            }
         }
     },
     inject: ['t']
