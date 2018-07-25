@@ -1,24 +1,24 @@
 <template>
     <div class="mp-dialog-wrapper">
-        <form 
-            class="mp-dialog-container" 
-            @submit.prevent="finish" 
-            @keydown.27.prevent="close" 
+        <form
+            class="mp-dialog-container"
+            @submit.prevent="finish"
+            @keydown.27.prevent="close"
             @keydown.enter.prevent="finish">
 
             <div class="mp-dialog-header">
-                <button 
-                    type="button" 
-                    class="mp-dialog-button" 
+                <button
+                    type="button"
+                    class="mp-dialog-button"
                     @click="close">{{ t('取消') }}</button>
                 <span>{{ t(request.title) }}</span>
-                <button 
-                    type="submit" 
+                <button
+                    type="submit"
                     class="mp-dialog-button">{{ t('确定') }}</button>
             </div>
 
-            <div 
-                ref="dialogBody" 
+            <div
+                ref="dialogBody"
                 class="mp-dialog-body">
                 <dialog-tab
                     v-if="request.type === 'tab'"

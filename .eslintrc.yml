@@ -7,5 +7,6 @@ rules:
   indent: [error, 4]
   vue/name-property-casing: "off"
   vue/html-indent: [error, 4]
+  no-trailing-spaces: [error]
 parserOptions:
   parser: babel-eslint
