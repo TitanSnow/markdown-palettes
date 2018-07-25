@@ -1,14 +1,25 @@
 <template>
     <div class="mp-dialog-wrapper">
-        <form class="mp-dialog-container" @submit.prevent="finish" @keydown.27.prevent="close" @keydown.enter.prevent="finish">
+        <form 
+            class="mp-dialog-container" 
+            @submit.prevent="finish" 
+            @keydown.27.prevent="close" 
+            @keydown.enter.prevent="finish">
 
             <div class="mp-dialog-header">
-                <button type="button" class="mp-dialog-button" @click="close">{{ t('取消') }}</button>
+                <button 
+                    type="button" 
+                    class="mp-dialog-button" 
+                    @click="close">{{ t('取消') }}</button>
                 <span>{{ t(request.title) }}</span>
-                <button type="submit" class="mp-dialog-button">{{ t('确定') }}</button>
+                <button 
+                    type="submit" 
+                    class="mp-dialog-button">{{ t('确定') }}</button>
             </div>
 
-            <div class="mp-dialog-body" ref="dialogBody">
+            <div 
+                ref="dialogBody" 
+                class="mp-dialog-body">
                 <dialog-tab
                     v-if="request.type === 'tab'"
                     :fields="request.body"
@@ -109,13 +120,18 @@ export default {
             responseData: initialData
         }
     },
-    mounted () {
-        this.focusInto()
-    },
     computed: {
         response () {
             return { ...this.request, data: this.responseData }
         }
+    },
+    watch: {
+        request () {
+            this.$nextTick(() => void this.focusInto())
+        }
+    },
+    mounted () {
+        this.focusInto()
     },
     methods: {
         close () {
@@ -128,11 +144,6 @@ export default {
             const [firstTabstop] = tabbable(this.$refs.dialogBody)
             if (firstTabstop)
                 firstTabstop.focus()
-        }
-    },
-    watch: {
-        request () {
-            this.$nextTick(() => void this.focusInto())
         }
     },
     inject: ['t']

@@ -1,15 +1,36 @@
 <template>
-    <div class="mp-dialog-select" @keydown.up.prevent="moveSelection(-1)" @keydown.down.prevent="moveSelection(1)" @focusin="focused = true" @focusout="focused = false" :class="focused ? 'focused' : ''">
-        <dialog-input :request-field="{ title: requestField.title, param: { placeholder: t('检索…') } }" v-model="inputValue" ref="dialogInput"/>
+    <div 
+        :class="focused ? 'focused' : ''" 
+        class="mp-dialog-select" 
+        @keydown.up.prevent="moveSelection(-1)" 
+        @keydown.down.prevent="moveSelection(1)" 
+        @focusin="focused = true" 
+        @focusout="focused = false">
+        <dialog-input 
+            ref="dialogInput" 
+            :request-field="{ title: requestField.title, param: { placeholder: t('检索…') } }" 
+            v-model="inputValue"/>
         <ul>
-            <li v-for="(item, idx) in filteredOptions" :key="item.title + '\uFFFE' + item.value" :class="selectedId === idx ? 'focused' : ''" @click="clickIdx(idx)">
-                <i class="fa fa-angle-right"></i>
+            <li 
+                v-for="(item, idx) in filteredOptions" 
+                :key="item.title + '\uFFFE' + item.value" 
+                :class="selectedId === idx ? 'focused' : ''" 
+                @click="clickIdx(idx)">
+                <i class="fa fa-angle-right"/>
                 <span class="primary-title">
-                    <span v-if="item.titleTokens"><span v-for="token in item.titleTokens" :class="token[1] ? 'match' : ''" :key="token.join()">{{ token[0] }}</span></span>
+                    <span v-if="item.titleTokens"><span 
+                        v-for="token in item.titleTokens" 
+                        :class="token[1] ? 'match' : ''" 
+                        :key="token.join()">{{ token[0] }}</span></span>
                     <span v-else>{{ item.title }}</span>
                 </span><br>
-                <span v-if="item.enTitle && item.enTitle != item.title" class="en-title">
-                    <span v-if="item.enTitleTokens"><span v-for="token in item.enTitleTokens" :class="token[1] ? 'match' : ''" :key="token.join()">{{ token[0] }}</span></span>
+                <span 
+                    v-if="item.enTitle && item.enTitle != item.title" 
+                    class="en-title">
+                    <span v-if="item.enTitleTokens"><span 
+                        v-for="token in item.enTitleTokens" 
+                        :class="token[1] ? 'match' : ''" 
+                        :key="token.join()">{{ token[0] }}</span></span>
                     <span v-else>{{ item.enTitle }}</span>
                 </span>
             </li>
@@ -56,8 +77,8 @@ import Fuse from 'fuse.js'
 
 export default {
     name: 'dialog-select',
-    extends: AbstractDialogComponent,
     components: {DialogInput},
+    extends: AbstractDialogComponent,
     data () {
         return {
             inputValue: this.value,
@@ -119,6 +140,13 @@ export default {
             })
         }
     },
+    watch: {
+        inputValue () {
+            if (this.selectedId == null) {
+                this.selectedId = 0
+            }
+        }
+    },
     methods: {
         moveSelection (steps) {
             if (this.selectedId == null) {
@@ -138,12 +166,5 @@ export default {
         },
         getCurrentLanguage
     },
-    watch: {
-        inputValue () {
-            if (this.selectedId == null) {
-                this.selectedId = 0
-            }
-        }
-    }
 }
 </script>

@@ -1,6 +1,11 @@
 <template>
     <div class="mp-dialog-input">
-        <label @focusin="focused = true" @focusout="focused = false" :class="focused ? 'focused' : ''"><span>{{ title }}</span><input v-model="value" :placeholder="placeholder"></label>
+        <label 
+            :class="focused ? 'focused' : ''" 
+            @focusin="focused = true" 
+            @focusout="focused = false"><span>{{ title }}</span><input 
+                v-model="value" 
+                :placeholder="placeholder"></label>
     </div>
 </template>
 

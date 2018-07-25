@@ -11,8 +11,14 @@
                     :class="{'mp-divider':item.name === '|'}"
                     :key="item.name + index">
                     <span v-if="item.name === '|'">|</span>
-                    <a v-else :title="t(ensureValue(item.title)) + (ensureValue(item.keyBinding) ? ` (${ensureValue(item.keyBinding)})`: '')" @click="toolbarAction(item)" unselectable="on">
-                        <i :class="['fa', ensureValue(item.icon)]" unselectable="on">{{ ensureValue(item.content) }}</i>
+                    <a 
+                        v-else 
+                        :title="t(ensureValue(item.title)) + (ensureValue(item.keyBinding) ? ` (${ensureValue(item.keyBinding)})`: '')" 
+                        unselectable="on" 
+                        @click="toolbarAction(item)">
+                        <i 
+                            :class="['fa', ensureValue(item.icon)]" 
+                            unselectable="on">{{ ensureValue(item.content) }}</i>
                     </a>
                 </li>
             </ul>
