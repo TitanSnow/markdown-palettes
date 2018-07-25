@@ -1,6 +1,6 @@
 <template>
     <div class="mp-dialog-wrapper">
-        <form class="mp-dialog-container" @submit.prevent="finish">
+        <form class="mp-dialog-container" @submit.prevent="finish" @keydown.27.prevent="close" @keydown.enter.prevent="finish">
 
             <div class="mp-dialog-header">
                 <button type="button" class="mp-dialog-button" @click="close">{{ t('取消') }}</button>
@@ -8,7 +8,7 @@
                 <button type="submit" class="mp-dialog-button">{{ t('确定') }}</button>
             </div>
 
-            <div class="mp-dialog-body">
+            <div class="mp-dialog-body" ref="dialogBody">
                 <dialog-tab
                     v-if="request.type === 'tab'"
                     :fields="request.body"
@@ -82,6 +82,8 @@
 </style>
 
 <script>
+import tabbable from 'tabbable'
+
 import DialogForm from './DialogForm.vue'
 import DialogTab from './DialogTab.vue'
 
@@ -107,6 +109,9 @@ export default {
             responseData: initialData
         }
     },
+    mounted () {
+        this.focusInto()
+    },
     computed: {
         response () {
             return { ...this.request, data: this.responseData }
@@ -118,6 +123,16 @@ export default {
         },
         finish () {
             this.$emit('finish', this.response)
+        },
+        focusInto () {
+            const [firstTabstop] = tabbable(this.$refs.dialogBody)
+            if (firstTabstop)
+                firstTabstop.focus()
+        }
+    },
+    watch: {
+        request () {
+            this.$nextTick(() => void this.focusInto())
         }
     },
     inject: ['t']

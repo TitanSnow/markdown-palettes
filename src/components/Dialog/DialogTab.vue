@@ -55,8 +55,9 @@ export default {
                 initialData[category.name][field.name] = field.default ? field.default : {}
             })
         })
+        const [defaultOpenId] = this.fields.map((item, id) => ({id, item})).filter(({ item: { open } }) => open).map(({ id }) => id)
         return {
-            selectId: 1,
+            selectId: defaultOpenId ? defaultOpenId : 0,
             data: initialData,
             count: this.fields.length
         }
