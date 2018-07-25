@@ -100,7 +100,6 @@
         width: 100%
 
     .mp-editor-toolbar
-        float: left
         width: 100%
         height: 40px
         box-sizing: border-box
