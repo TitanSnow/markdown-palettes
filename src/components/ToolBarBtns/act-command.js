@@ -18,7 +18,8 @@ export default {
                             title: this.ensureValue(title),
                             icon: this.ensureValue(icon)
                         }))
-                        .filter(({ value, title }) => value && title)
+                        .filter(({ value, title }) => value && title),
+                    autoopen: true
                 }
             }],
             callback: (data) => {
