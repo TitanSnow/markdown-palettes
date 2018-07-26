@@ -13,11 +13,12 @@ export default {
                 param: {
                     options: this.toolbarConfig
                         .filter(({ name, title }) => name && title)
-                        .map(({ name, title }) => ({ name: this.ensureValue(name), title: this.ensureValue(title) }))
-                        .filter(({ name, title }) => name && title)
-                        .map(({ name, title }) => ({
-                            value: name, title
+                        .map(({ name, title, icon }) => ({
+                            value: this.ensureValue(name),
+                            title: this.ensureValue(title),
+                            icon: this.ensureValue(icon)
                         }))
+                        .filter(({ value, title }) => value && title)
                 }
             }],
             callback: (data) => {

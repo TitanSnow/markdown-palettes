@@ -1,8 +1,7 @@
 export default function headerFactory (level) {
     const btn = {
         name: 'h' + level,
-        icon: 'icon-blold',
-        content: 'H' + level,
+        icon: `fa-h${level}`,
         title: level + '级标题',
         action () {
             const line = this.editor.getCursor().line

@@ -15,19 +15,15 @@
                 :key="item.title + '\uFFFE' + item.value"
                 :class="selectedId === idx ? 'focused' : ''"
                 @click="clickIdx(idx)">
-                <i class="fa fa-angle-right"/>
-                <span class="primary-title">
-                    <span v-if="item.titleTokens"><span
-                        v-for="(token, idx) in item.titleTokens"
-                        :class="token[1] ? 'match' : ''">{{ token[0] }}</span></span>
+                <i :class="'fa ' + (item.icon ? item.icon : 'fa-angle-right')"/>
+                <span class="primary-title title">
+                    <token-list v-if="item.titleTokens" :tokens="item.titleTokens"/>
                     <span v-else>{{ item.title }}</span>
                 </span><br>
                 <span
                     v-if="item.enTitle && item.enTitle != item.title"
-                    class="en-title">
-                    <span v-if="item.enTitleTokens"><span
-                        v-for="token in item.enTitleTokens"
-                        :class="token[1] ? 'match' : ''">{{ token[0] }}</span></span>
+                    class="en-title title">
+                    <token-list v-if="item.enTitleTokens" :tokens="item.enTitleTokens"/>
                     <span v-else>{{ item.enTitle }}</span>
                 </span>
             </li>
@@ -53,29 +49,30 @@
         color #666
     .mp-dialog-select > ul > li > i.fa
         color #999
-        margin-left -18px
-        margin-right 18px
-        width 0
-        overflow visible
+        margin-left -27px
+        margin-right 7px
+        width 20px
+        text-align center
     .mp-dialog-select > ul > li.focused
         background-color #eee
         color #000
     .mp-dialog-select > ul > li > span.en-title
         font-size .7em
-    .mp-dialog-select > ul > li > span  span.match
+    .mp-dialog-select > ul > li > span.title >>> span.true
         text-decoration underline
 </style>
 
 <script>
 import AbstractDialogComponent from './AbstractDialogFormComponent'
 import DialogInput from './DialogInput.vue'
+import TokenList from '../../TokenList.jsx'
 import { getCurrentLanguage } from '../../../utils/i18n'
 import Fuse from 'fuse.js'
 import _ from 'lodash'
 
 export default {
     name: 'dialog-select',
-    components: {DialogInput},
+    components: { DialogInput, TokenList },
     extends: AbstractDialogComponent,
     data () {
         return {
@@ -90,8 +87,10 @@ export default {
             return this.param.autoopen ? true : false
         },
         twoLangsOptions () {
-            return this.param.options.map(({ title, value }) => {
+            return this.param.options.map(opt => {
+                const { title, value } = opt
                 const result = {
+                    ...opt,
                     title: this.t(title),
                     value
                 }
@@ -104,10 +103,9 @@ export default {
         filteredOptions () {
             if (this.inputValue) {
                 const searchResult = this.fuseSearchObj.search(this.inputValue)
-                return searchResult.map(({ item: { title, enTitle, value }, matches }) => {
-                    const result = {
-                        title, enTitle, value
-                    }
+                return searchResult.map(({ item: opt, matches }) => {
+                    const result = { ...opt }
+                    const { title, enTitle, value } = opt
                     for (const {indices, key, value} of matches) {
                         let lastIndex = 0
                         const tokens = []
@@ -213,6 +211,6 @@ export default {
             this.$refs.dialogInput.$el.querySelector('input').focus()
         },
         getCurrentLanguage
-    },
+    }
 }
 </script>

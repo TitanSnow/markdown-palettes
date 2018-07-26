@@ -19,7 +19,7 @@
                         @click="toolbarAction(item)">
                         <i
                             :class="['fa', ensureValue(item.icon)]"
-                            unselectable="on">{{ ensureValue(item.content) }}</i>
+                            unselectable="on"></i>
                     </a>
                 </li>
             </ul>
@@ -200,6 +200,20 @@
         margin: 0 5px
         height: 65%
         border-right: 1px solid #ddd
+</style>
+<style lang="stylus">
+    .fa-h1::before
+        content: 'H1'
+    .fa-h2::before
+        content: 'H2'
+    .fa-h3::before
+        content: 'H3'
+    .fa-h4::before
+        content: 'H4'
+    .fa-h5::before
+        content: 'H5'
+    .fa-h6::before
+        content: 'H6'
 </style>
 
 <script>
