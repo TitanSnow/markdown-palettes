@@ -41,8 +41,10 @@ export default {
         },
         openDialog (request) {
             this.dialogRequest = request
-            this.showDialog = true
-            this.dialogBeforeOpenIsFocusEditor = this.editor.hasFocus()
+            if (!this.showDialog) {
+                this.showDialog = true
+                this.dialogBeforeOpenIsFocusEditor = this.editor.hasFocus()
+            }
         },
         dialogFinish (request) {
             if (request.callback) {

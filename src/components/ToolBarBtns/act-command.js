@@ -21,7 +21,7 @@ export default {
                 }
             }],
             callback: (data) => {
-                this.execCommand(data.command)
+                this.$nextTick(() => void this.execCommand(data.command))
             }
         })
     },
