@@ -58,6 +58,7 @@
         color #000
     .mp-dialog-select > ul > li > span.en-title
         font-size .7em
+        opacity .6
     .mp-dialog-select > ul > li > span.title >>> span.true
         text-decoration underline
 </style>
