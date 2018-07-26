@@ -25,5 +25,5 @@ export default {
             }
         })
     },
-    keyBinding: 'Ctrl-Q'
+    keyBinding: 'Shift-Ctrl-P'
 }
