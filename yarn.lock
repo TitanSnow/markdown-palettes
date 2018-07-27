@@ -748,6 +748,10 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.0.tgz#50c1e2260ac0ed9439a181de3725a0168d59c48a"
 
+"@tttnns/undefined@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@tttnns/undefined/-/undefined-1.0.0.tgz#de3af674bad6de52de5ba4a2d4dde8b681b45a94"
+
 "@vue/babel-preset-app@^3.0.0-rc.3":
   version "3.0.0-rc.3"
   resolved "https://registry.yarnpkg.com/@vue/babel-preset-app/-/babel-preset-app-3.0.0-rc.3.tgz#e4f5f884448489b1b4651c986548639f3bec823f"
@@ -4317,9 +4321,9 @@ markdown-it-v-katex@^1.0.0-alpha.1:
   dependencies:
     katex "^0.9.0"
 
-markdown-it-v@^1.0.0-alpha.3:
-  version "1.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/markdown-it-v/-/markdown-it-v-1.0.0-alpha.3.tgz#4b97f24a0054411b8e7d391016e85892984796bb"
+markdown-it-v@^1.0.0-beta.1:
+  version "1.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/markdown-it-v/-/markdown-it-v-1.0.0-beta.1.tgz#f9cf9d0ecacaee9a971430f281cd374bb2336fab"
   dependencies:
     css-tree "^1.0.0-alpha.29"
     lodash "^4.17.10"
