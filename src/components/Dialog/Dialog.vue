@@ -78,10 +78,6 @@
         background-color: #f7f7f7;
     }
 
-    .mp-dialog-body {
-        padding: 8px;
-    }
-
     .mp-dialog-header > .mp-dialog-button {
         background-color: transparent;
         display: inline-block;

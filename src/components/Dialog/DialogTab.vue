@@ -12,8 +12,9 @@
                     :style="{'width': (100 / count) + '%'}"
                     :key="category.name"
                     class="dialog-switch"
-                    @click="focus(index)">
-                    <strong>{{ category.title }} </strong>
+                    @click="focus(index)"
+                    tabindex="-1">
+                    <span>{{ category.title }} </span>
                 </li>
             </ul>
         </div>
@@ -82,9 +83,6 @@ export default {
 <style scoped>
     .dialog-tab {
         width: 100%;
-        margin-bottom: 10px;
-        border: 1px solid #ddd;
-        border-radius: 3px 3px 0 0;
     }
     .dialog-switch-container {
         width: 100%;
@@ -106,6 +104,10 @@ export default {
         list-style: none;
         text-align: center;
         box-sizing: border-box;
+    }
+    .dialog-switch:focus {
+        outline: none;
+        text-decoration: underline #999;
     }
 
     .dialog-switch-not-last {

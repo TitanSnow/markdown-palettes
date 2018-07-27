@@ -1,0 +1,52 @@
+.mp-info-credit-container h3
+    font-weight normal
+
+.mp-info-credit-container > div
+    box-shadow 0 2px 3px rgba(0, 0, 0, .1)
+    padding 5px 10px
+    margin 10px
+    border 1px solid #eee
+
+.mp-info-credit-contributors img
+    width 32px
+    height 32px
+    border-radius 3px
+.mp-info-credit-contributors ul
+    padding 0
+.mp-info-credit-contributors li
+    list-style-type none
+    margin 15px 20px
+.mp-info-credit-contributors a
+    display flex
+    align-items center
+    color black
+    text-decoration none
+    border-bottom 1px solid #ddd
+    transition border-bottom 200ms ease-out
+.mp-info-credit-contributors a:hover, .mp-info-credit-contributors a:focus
+    border-bottom 1px solid #666
+    outline none
+.mp-info-credit-contributors a > span
+    flex-grow 1
+    margin-left 20px
+
+.mp-info-credit-dependencies li
+    list-style-type circle
+.mp-info-credit-dependencies a
+    color black
+    text-decoration-color #ddd
+    transition text-decoration-color 200ms ease-out
+.mp-info-credit-dependencies a:hover, .mp-info-credit-dependencies a:focus
+    text-decoration-color #666
+    outline none
+
+.mp-info-about-container
+    text-align center
+.mp-info-about-container a
+    color black
+    text-decoration-color #666
+
+.mp-info-license-container
+    text-align justify
+    margin 0 20px
+    hyphens auto

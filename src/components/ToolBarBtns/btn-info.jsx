@@ -1,5 +1,6 @@
 import axios from 'axios'
 import pkg from '../../../package.json'
+import './btn-info.stylus'
 
 export default {
     name: 'info',
@@ -17,7 +18,7 @@ export default {
                         component: {
                             functional: true,
                             render: (h, { injections: {t} }) =>
-                                <div style="text-align: center">
+                                <div class="mp-info-about-container">
                                     <h3>{ t('Markdown*Palettes') }</h3>
                                     <p>{ pkg.version }</p>
                                     <p>{ t('开源的 Markdown 编辑器') }<br/>{ t('面向现代化网络环境') }</p>
@@ -39,21 +40,21 @@ export default {
                             },
                             render (h) {
                                 const t = this.t
-                                return <div>
+                                return <div class="mp-info-credit-container">
                                     {
                                         this.contributors != null ? (
-                                            <div>
+                                            <div class="mp-info-credit-contributors">
                                                 <h3>{ t('贡献者') }</h3>
                                                 <ul>{
                                                     this.contributors.map(({ avatar_url, html_url, name, login }) => {
                                                         if (name === null) name = login
-                                                        return <li key={ login }><a href={ html_url }><img alt={ name } src={ avatar_url } width="32" height="32"/><span>{ name }</span></a></li>
+                                                        return <li key={ login }><a href={ html_url }><img alt={ name } src={ avatar_url }/><span>{ name }</span></a></li>
                                                     })
                                                 }</ul>
                                             </div>
                                         ) : null
                                     }
-                                    <div>
+                                    <div class="mp-info-credit-dependencies">
                                         <h3>{ t('依赖') }</h3>
                                         <ul>
                                             {
@@ -85,7 +86,7 @@ export default {
                         component: {
                             functional: true,
                             render: (h, { injections: {t} }) =>
-                                <div>
+                                <div class="mp-info-license-container" lang="en">
                                     <p>Copyright (c) 2017–2018 Luogu Development Team</p>
                                     <p>Permission is hereby granted, free of charge, to any person obtaining a copy
                                     of this software and associated documentation files (the "Software"), to deal
