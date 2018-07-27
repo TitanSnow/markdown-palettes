@@ -26,17 +26,26 @@
             </div>
 
             <div class="mp-dialog-header">
-                <button
-                    type="button"
-                    class="mp-dialog-button"
-                    @click="close">{{ t('取消') }}</button>
-                <span>
-                    <span>{{ t(request.title) }}</span>
-                    <i class="fa fa-thumbtack pin-icon" :class="{ pinned }" @click="togglePin" tabindex="-1"/>
-                </span>
-                <button
-                    type="submit"
-                    class="mp-dialog-button">{{ t('确定') }}</button>
+                <div>{{ t(request.title) }}</div>
+                <div>
+                    <button
+                        type="button"
+                        class="mp-dialog-button"
+                        @click="togglePin">
+                        <i class="fa fa-thumbtack pin-icon" :class="{ pinned }"/>
+                    </button>
+                    <button
+                        type="button"
+                        class="mp-dialog-button"
+                        @click="close">
+                        <i class="fa fa-times"/>
+                    </button>
+                    <button
+                        type="submit"
+                        class="mp-dialog-button">
+                        <i class="fa fa-check"/>
+                    </button>
+                </div>
             </div>
 
         </form>
@@ -81,34 +90,28 @@
         padding: 5px 8px;
         border-bottom: 1px solid #ddd;
         background-color: #f7f7f7;
+        line-height: 24px;
     }
 
     .mp-dialog-header .pin-icon {
         transform: rotate(-90deg);
-        margin-left: 20px;
-        color: #999;
-        overflow: visible;
-        margin-right: -35px;
-        width: 15px;
-        overflow: visible;
-        cursor: pointer;
     }
     .mp-dialog-header .pin-icon.pinned {
         transform: initial;
     }
 
-    .mp-dialog-header > .mp-dialog-button {
+    .mp-dialog-header .mp-dialog-button {
         background-color: transparent;
         display: inline-block;
-        min-width: 75px;
+        width: 24px;
         cursor: pointer;
         border: none;
         transition: background-color 100ms ease-out;
         color: #666;
         font: inherit;
-        font-size: .7em;
+        padding: 0;
     }
-    .mp-dialog-header > .mp-dialog-button:hover {
+    .mp-dialog-header .mp-dialog-button:hover {
         background-color: #eee;
     }
 </style>
