@@ -1907,6 +1907,10 @@ combined-stream@1.0.6, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
+combokeys@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/combokeys/-/combokeys-3.0.0.tgz#955c59a3959af40d26846ab6fc3c682448e7572e"
+
 commander@2.16.x, commander@^2.13.0, commander@~2.16.0:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.16.0.tgz#f16390593996ceb4f3eeb020b31d78528f7f8a50"

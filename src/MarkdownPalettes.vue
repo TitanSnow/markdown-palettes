@@ -1,7 +1,8 @@
 <template>
     <div
         :class="{'mp-full-screen': fullScreen}"
-        class="mp-editor-container">
+        class="mp-editor-container"
+        tabindex="-1">
         <div
             v-if="toolbarBtns.length"
             class="mp-editor-toolbar">
@@ -227,6 +228,7 @@ import InputAreaMixin from './mixins/InputAreaMixin'
 import PreviewAreaMixin from './mixins/PreviewAreaMixin'
 import ToolbarMixin from './mixins/ToolbarMixin'
 import ActionMixin from './mixins/ActionMixin'
+import KeybindingMixin from './mixins/KeybindingMixin'
 
 import { defaultConfig, getConfig } from './utils/DefaultConfig'
 import { contentParserFactory } from './parsers/ContentParserFactory'
@@ -236,7 +238,7 @@ import { getText } from './utils/i18n'
 export default {
     name: 'markdown-palettes',
     components: { 'editor-dialog': Dialog, PreviewArea },
-    mixins: [InputAreaMixin, PreviewAreaMixin, ToolbarMixin, ActionMixin],
+    mixins: [InputAreaMixin, PreviewAreaMixin, KeybindingMixin, ToolbarMixin, ActionMixin],
     props: {
         value: {
             type: String,

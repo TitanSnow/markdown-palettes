@@ -27,5 +27,5 @@ export default {
             }
         })
     },
-    keyBinding: 'Shift-Ctrl-P'
+    keyBinding: 'global://Shift-Ctrl-P'
 }
