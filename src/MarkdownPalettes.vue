@@ -60,7 +60,8 @@
                 v-if="showDialog"
                 :request="dialogRequest"
                 @finish="dialogFinish"
-                @close="closeDialog"/>
+                @close="closeDialog"
+                ref="dialog"/>
         </div>
     </div>
 </template>

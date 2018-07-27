@@ -3,8 +3,8 @@
         <form
             class="mp-dialog-container"
             @submit.prevent="finish"
-            @focusout="formFocusout"
-            @focusin="formFocusin">
+            @focusout="focused = false"
+            @focusin="focused = true">
 
             <div
                 ref="dialogBody"
@@ -15,7 +15,9 @@
                     v-if="request.type === 'tab'"
                     :fields="request.body"
                     v-model="responseData"
-                    :key="key"/>
+                    :key="key"
+                    ref="dialogTab"
+                    />
                 <dialog-form
                     v-else
                     :fields="request.body"
@@ -28,7 +30,10 @@
                     type="button"
                     class="mp-dialog-button"
                     @click="close">{{ t('取消') }}</button>
-                <span>{{ t(request.title) }}</span>
+                <span>
+                    <span>{{ t(request.title) }}</span>
+                    <i class="fa fa-thumbtack pin-icon" :class="{ pinned }" @click="togglePin" tabindex="-1"/>
+                </span>
                 <button
                     type="submit"
                     class="mp-dialog-button">{{ t('确定') }}</button>
@@ -78,6 +83,20 @@
         background-color: #f7f7f7;
     }
 
+    .mp-dialog-header .pin-icon {
+        transform: rotate(-90deg);
+        margin-left: 20px;
+        color: #999;
+        overflow: visible;
+        margin-right: -35px;
+        width: 15px;
+        overflow: visible;
+        cursor: pointer;
+    }
+    .mp-dialog-header .pin-icon.pinned {
+        transform: initial;
+    }
+
     .mp-dialog-header > .mp-dialog-button {
         background-color: transparent;
         display: inline-block;
@@ -89,7 +108,7 @@
         font: inherit;
         font-size: .7em;
     }
-    .mp-dialog-button:hover {
+    .mp-dialog-header > .mp-dialog-button:hover {
         background-color: #eee;
     }
 </style>
@@ -112,7 +131,8 @@ export default {
     data () {
         return {
             responseData: this.getInitialData(),
-            pendingClose: null,
+            focused: false,
+            pinned: false,
             key: 0
         }
     },
@@ -126,6 +146,12 @@ export default {
             this.$nextTick(() => void this.focusInto())
             this.responseData = this.getInitialData()
             ++this.key
+        },
+        focused () {
+            this.checkLeave()
+        },
+        pinned () {
+            this.checkLeave()
         }
     },
     mounted () {
@@ -143,15 +169,6 @@ export default {
             if (firstTabstop)
                 firstTabstop.focus()
         },
-        formFocusout () {
-            this.pendingClose = window.setTimeout(() => void this.close(), 100)
-        },
-        formFocusin () {
-            if (this.pendingClose != null){
-                window.clearTimeout(this.pendingClose)
-                this.pendingClose = null
-            }
-        },
         getInitialData () {
             const initialData = {}
             this.request.body.forEach((field) => {
@@ -162,6 +179,31 @@ export default {
                 }
             })
             return initialData
+        },
+        dialogTabSwitchTo (relative, idx) {
+            const tab = this.$refs.dialogTab
+            if (!tab) return false
+            if (relative)
+                tab.selectId += idx
+            else
+                tab.selectId = idx
+            const len = this.request.body.length
+            while (tab.selectId < 0) tab.selectId += len
+            tab.selectId %= len
+            this.$nextTick(() => {
+                this.$el.getElementsByClassName('dialog-switch-focus')[0].focus()
+            })
+            return true
+        },
+        togglePin () {
+            this.pinned = !this.pinned
+        },
+        checkLeave () {
+            if (!this.focused && !this.pinned) {
+                window.setTimeout(() => {
+                    if (!this.focused && !this.pinned) this.close()
+                }, 100)
+            }
         }
     },
     inject: ['t']

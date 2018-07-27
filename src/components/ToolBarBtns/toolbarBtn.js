@@ -14,7 +14,11 @@ import BtnHide from './btn-hide'
 import BtnFullscreen from './btn-fullscreen'
 import BtnScrollsync from './btn-scrollsync'
 import BtnInfo from './btn-info.jsx'
-import ActCommand from './act-command'
+import BtnCommand from './btn-command'
+import ActFocuseditor from './act-focuseditor'
+import ActTabswitchleft from './act-tabswitchleft'
+import ActTabswitchright from './act-tabswitchright'
+import ActPindialog from './act-pindialog'
 
 export const defaultBtns = [
     BtnBold,
@@ -40,9 +44,13 @@ export const defaultBtns = [
     BtnHide,
     BtnFullscreen,
     BtnScrollsync,
+    BtnCommand,
     Divider,
     BtnInfo,
-    ActCommand
+    ActFocuseditor,
+    ActTabswitchleft,
+    ActTabswitchright,
+    ActPindialog
 ]
 
 export const defaultSimpleBtns = [

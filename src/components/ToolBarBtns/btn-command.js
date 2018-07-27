@@ -2,7 +2,6 @@ export default {
     name: 'command',
     icon: 'fa-terminal',
     title: '打开命令面板',
-    type: 'action',
     action () {
         this.openDialog({
             title: '命令面板',
