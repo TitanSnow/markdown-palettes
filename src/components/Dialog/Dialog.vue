@@ -14,11 +14,13 @@
                 <dialog-tab
                     v-if="request.type === 'tab'"
                     :fields="request.body"
-                    v-model="responseData"/>
+                    v-model="responseData"
+                    :key="key"/>
                 <dialog-form
                     v-else
                     :fields="request.body"
-                    v-model="responseData"/>
+                    v-model="responseData"
+                    :key="key"/>
             </div>
 
             <div class="mp-dialog-header">
@@ -112,17 +114,10 @@ export default {
         }
     },
     data () {
-        const initialData = {}
-        this.request.body.forEach((field) => {
-            if (this.request.type === 'form') {
-                initialData[field.name] = field.default ? field.default : ''
-            } else if (this.request.type === 'tab') {
-                initialData[field.name] = {}
-            }
-        })
         return {
-            responseData: initialData,
-            pendingClose: null
+            responseData: this.getInitialData(),
+            pendingClose: null,
+            key: 0
         }
     },
     computed: {
@@ -133,6 +128,8 @@ export default {
     watch: {
         request () {
             this.$nextTick(() => void this.focusInto())
+            this.responseData = this.getInitialData()
+            ++this.key
         }
     },
     mounted () {
@@ -158,6 +155,17 @@ export default {
                 window.clearTimeout(this.pendingClose)
                 this.pendingClose = null
             }
+        },
+        getInitialData () {
+            const initialData = {}
+            this.request.body.forEach((field) => {
+                if (this.request.type === 'form') {
+                    initialData[field.name] = field.default ? field.default : ''
+                } else if (this.request.type === 'tab') {
+                    initialData[field.name] = {}
+                }
+            })
+            return initialData
         }
     },
     inject: ['t']
