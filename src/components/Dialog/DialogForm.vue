@@ -1,5 +1,7 @@
 <template>
-    <div class="dialog-form" tabindex="-1">
+    <div
+        class="dialog-form"
+        tabindex="-1">
         <div
             v-for="field in fields"
             :key="field.name"

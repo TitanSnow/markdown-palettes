@@ -12,8 +12,8 @@
                     :style="{'width': (100 / count) + '%'}"
                     :key="category.name"
                     class="dialog-switch"
-                    @click="focus(index)"
-                    tabindex="-1">
+                    tabindex="-1"
+                    @click="focus(index)">
                     <span>{{ category.title }} </span>
                 </li>
             </ul>

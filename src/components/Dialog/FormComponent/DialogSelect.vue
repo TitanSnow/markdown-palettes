@@ -17,13 +17,17 @@
                 @click="clickIdx(idx)">
                 <i :class="'fa ' + (item.icon ? item.icon : 'fa-angle-right')"/>
                 <span class="primary-title title">
-                    <token-list v-if="item.titleTokens" :tokens="item.titleTokens"/>
+                    <token-list
+                        v-if="item.titleTokens"
+                        :tokens="item.titleTokens"/>
                     <span v-else>{{ item.title }}</span>
                 </span><br>
                 <span
                     v-if="item.enTitle && item.enTitle != item.title"
                     class="en-title title">
-                    <token-list v-if="item.enTitleTokens" :tokens="item.enTitleTokens"/>
+                    <token-list
+                        v-if="item.enTitleTokens"
+                        :tokens="item.enTitleTokens"/>
                     <span v-else>{{ item.enTitle }}</span>
                 </span>
             </li>
@@ -106,7 +110,6 @@ export default {
                 const searchResult = this.fuseSearchObj.search(this.inputValue)
                 return searchResult.map(({ item: opt, matches }) => {
                     const result = { ...opt }
-                    const { title, enTitle, value } = opt
                     for (const {indices, key, value} of matches) {
                         let lastIndex = 0
                         const tokens = []

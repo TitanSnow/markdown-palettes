@@ -13,11 +13,11 @@
                 @keydown.enter.prevent="finish">
                 <dialog-tab
                     v-if="request.type === 'tab'"
+                    ref="dialogTab"
                     :fields="request.body"
                     v-model="responseData"
                     :key="key"
-                    ref="dialogTab"
-                    />
+                />
                 <dialog-form
                     v-else
                     :fields="request.body"
@@ -32,7 +32,9 @@
                         type="button"
                         class="mp-dialog-button"
                         @click="togglePin">
-                        <i class="fa fa-thumbtack pin-icon" :class="{ pinned }"/>
+                        <i
+                            :class="{ pinned }"
+                            class="fa fa-thumbtack pin-icon"/>
                     </button>
                     <button
                         type="button"

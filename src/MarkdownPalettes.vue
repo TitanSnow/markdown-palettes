@@ -9,9 +9,9 @@
             <ul class="mp-editor-menu">
                 <li
                     v-for="(item, index) in toolbarBtns"
+                    v-if="item.type == null || item.type === 'button'"
                     :class="{'mp-divider':item.name === '|'}"
-                    :key="item.name + index"
-                    v-if="item.type == null || item.type === 'button'">
+                    :key="item.name + index">
                     <span v-if="item.name === '|'">|</span>
                     <a
                         v-else
@@ -20,7 +20,7 @@
                         @click="toolbarAction(item)">
                         <i
                             :class="['fa', ensureValue(item.icon)]"
-                            unselectable="on"></i>
+                            unselectable="on"/>
                     </a>
                 </li>
             </ul>
@@ -58,10 +58,10 @@
         <div>
             <editor-dialog
                 v-if="showDialog"
+                ref="dialog"
                 :request="dialogRequest"
                 @finish="dialogFinish"
-                @close="closeDialog"
-                ref="dialog"/>
+                @close="closeDialog"/>
         </div>
     </div>
 </template>
