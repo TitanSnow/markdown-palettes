@@ -15,6 +15,18 @@ module.exports = {
             alias: {
                 'css-tree': '@tttnns/undefined'
             }
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.md$/,
+                    use: [
+                        {
+                            loader: 'url-loader'
+                        }
+                    ]
+                }
+            ]
         }
     },
     productionSourceMap: false
