@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
+    <% if (BASE_URL === './') { %><base href="app://./" /><% } %>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>luogu-markdown-editor</title>
   </head>
-  <body>
-    <div id="editor-container" style="height: 700px;">
+  <body style="margin: 0; overflow: hidden;">
+    <div id="editor-container" style="width: 100vw; height: 100vh;">
       <div id="editor"></div>
     </div>
     <!-- built files will be auto injected -->

@@ -1,20 +1,17 @@
 {
   "name": "markdown-palettes",
-  "description": "Markdown*Palettes: Markdown editor for the modern web.",
   "version": "0.4.6",
-  "author": "Luogu Dev Team",
-  "license": "MIT",
-  "main": "dist/MarkdownPalettes.common.js",
-  "style": "dist/MarkdownPalettes.css",
   "scripts": {
+    "build": "vue-cli-service build --name MarkdownPalettes --target lib src/browserModule.js && cp demo.html dist && ./.after-build.sh",
+    "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve --open",
     "prod-test": "vue-cli-service serve --open --mode production",
-    "build": "vue-cli-service build --name MarkdownPalettes --target lib src/browserModule.js && cp demo.html dist && ./.after-build.sh",
     "build-dev": "vue-cli-service build --name MarkdownPalettes --target lib src/browserModule.js --mode development",
-    "lint": "vue-cli-service lint",
     "lint-fix": "vue-cli-service lint --fix",
     "analyze": "vue-cli-service build --name MarkdownPalettes --target lib src/browserModule.js --report",
-    "test-dist": "node ./test_dist_server.js"
+    "test-dist": "node ./test_dist_server.js",
+    "build:electron": "vue-cli-service build:electron",
+    "serve:electron": "vue-cli-service serve:electron"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.1.0",
@@ -37,15 +34,19 @@
     "@vue/cli-service": "^3.0.0-beta.15",
     "@vue/eslint-config-standard": "^3.0.0-rc.3",
     "babel-plugin-lodash": "^3.3.4",
+    "electron": "^2.0.2",
     "express": "^4.16.3",
     "morgan": "^1.9.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.5.11",
+    "vue-cli-plugin-electron-builder": "^1.0.0-beta.6",
     "vue-template-compiler": "^2.5.16"
   },
-  "peerDependencies": {
-    "vue": "^2.5.11"
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
   },
   "browserslist": [
     "Edge >= 15",
@@ -54,9 +55,12 @@
     "Opera >= 42",
     "Safari >= 10.1"
   ],
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  }
+  "description": "Markdown*Palettes: Markdown editor for the modern web.",
+  "main": "dist_electron/bundled/background.js",
+  "license": "MIT",
+  "author": "Luogu Dev Team",
+  "peerDependencies": {
+    "vue": "^2.5.11"
+  },
+  "style": "dist/MarkdownPalettes.css"
 }
