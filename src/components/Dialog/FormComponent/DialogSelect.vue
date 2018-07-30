@@ -9,7 +9,9 @@
             ref="dialogInput"
             :request-field="{ title: requestField.title, param: { placeholder: param.placeholder ? param.placeholder : t('选择…') } }"
             v-model="inputValue"/>
-        <ul v-show="showOptions" :class="{ 'pad-left': requestField.title }">
+        <ul
+            v-show="showOptions"
+            :class="{ 'pad-left': requestField.title }">
             <li
                 v-for="(item, idx) in filteredOptions"
                 :key="item.title + '\uFFFE' + item.value"
