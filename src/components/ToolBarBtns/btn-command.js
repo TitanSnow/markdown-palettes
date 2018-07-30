@@ -18,7 +18,8 @@ export default {
                         }))
                         .filter(({ value, title }) => value && title),
                     autoopen: true,
-                    placeholder: '输入命令…'
+                    placeholder: '输入命令…',
+                    submitOnClick: true
                 }
             }],
             callback: (data) => {

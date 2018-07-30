@@ -214,7 +214,15 @@ export default {
         },
         clickIdx (idx) {
             this.selectedId = idx
-            this.$refs.dialogInput.$el.querySelector('input').focus()
+            if (this.param.submitOnClick) {
+                this.$nextTick(() => {
+                    let cur = this.$parent
+                    while (!cur.isDialog) cur = cur.$parent
+                    cur.finish()
+                })
+            } else {
+                this.$refs.dialogInput.$el.querySelector('input').focus()
+            }
         },
         getCurrentLanguage
     }

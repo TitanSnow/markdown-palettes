@@ -144,6 +144,9 @@ export default {
     computed: {
         response () {
             return { ...this.request, data: this.responseData }
+        },
+        isDialog () {
+            return true
         }
     },
     watch: {
