@@ -7,9 +7,9 @@
         @focusout="focused = false">
         <dialog-input
             ref="dialogInput"
-            :request-field="{ title: requestField.title, param: { placeholder: t('检索…') } }"
+            :request-field="{ title: requestField.title, param: { placeholder: param.placeholder ? param.placeholder : t('选择…') } }"
             v-model="inputValue"/>
-        <ul v-show="showOptions">
+        <ul v-show="showOptions" :class="{ 'pad-left': requestField.title }">
             <li
                 v-for="(item, idx) in filteredOptions"
                 :key="item.title + '\uFFFE' + item.value"
@@ -47,8 +47,10 @@
         padding 3px
         color #999
         transition background-color 100ms ease-out, color 100ms ease-out
-        padding-left calc(20% + 3px)
         line-height 1
+        padding-left 30px
+    .mp-dialog-select > ul.pad-left > li
+        padding-left calc(20% + 3px)
     .mp-dialog-select.focused > ul > li
         color #666
     .mp-dialog-select > ul > li > i.fa

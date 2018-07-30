@@ -3,7 +3,10 @@
         <label
             :class="focused ? 'focused' : ''"
             @focusin="focused = true"
-            @focusout="focused = false"><span>{{ title }}</span><input
+            @focusout="focused = false">
+            <span
+                v-if="title">{{ title }}</span>
+            <input
                 v-model="value"
                 :placeholder="placeholder"></label>
     </div>
@@ -40,6 +43,7 @@
         border: none;
         color: #000;
         font: inherit;
+        flex-grow: 99;
     }
     .mp-dialog-input > label > input:focus {
         outline: none;

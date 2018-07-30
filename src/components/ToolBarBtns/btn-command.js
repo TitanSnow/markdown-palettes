@@ -8,7 +8,6 @@ export default {
             body: [{
                 name: 'command',
                 type: 'dialog-select',
-                title: '输入命令',
                 param: {
                     options: this.toolbarConfig
                         .filter(({ name, title }) => name && title)
@@ -18,7 +17,8 @@ export default {
                             icon: this.ensureValue(icon)
                         }))
                         .filter(({ value, title }) => value && title),
-                    autoopen: true
+                    autoopen: true,
+                    placeholder: '输入命令…'
                 }
             }],
             callback: (data) => {
