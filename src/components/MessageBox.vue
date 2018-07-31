@@ -1,12 +1,22 @@
 <template>
-    <div class="mp-messagebox" @click="message.callback">
+    <div
+        class="mp-messagebox"
+        @click="message.callback">
         <div class="mp-messagebox-buttons">
-            <button v-for="button in message.buttons" :key="button.name" @click="button.callback" class="mp-messagebox-button" :title="button.title">
+            <button
+                v-for="button in message.buttons"
+                :key="button.name"
+                :title="button.title"
+                class="mp-messagebox-button"
+                @click="button.callback">
                 <i :class="'fa ' + button.icon"/>
             </button>
         </div>
         <div class="mp-messagebox-body">
-            <i :class="'fa ' + message.icon" v-if="message.icon" class="mp-messagebox-icon"/>
+            <i
+                v-if="message.icon"
+                :class="'fa ' + message.icon"
+                class="mp-messagebox-icon"/>
             <strong v-if="message.title">{{ message.title }}</strong><br v-if="message.title">
             <span>{{ message.text }}</span>
         </div>

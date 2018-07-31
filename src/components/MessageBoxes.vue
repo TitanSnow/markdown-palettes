@@ -1,7 +1,9 @@
 <template>
     <div class="mp-messageboxes-wrapper">
         <div class="mp-messageboxes-container">
-            <transition-group name="messageboxlist" tag="div">
+            <transition-group
+                name="messageboxlist"
+                tag="div">
                 <message-box
                     v-for="message in messages"
                     :message="message"
@@ -37,12 +39,12 @@
 import MessageBox from './MessageBox.vue'
 
 export default {
+    components: { MessageBox },
     props: {
         messages: {
             type: Array,
-            default: []
+            default: () => []
         }
     },
-    components: { MessageBox }
 }
 </script>

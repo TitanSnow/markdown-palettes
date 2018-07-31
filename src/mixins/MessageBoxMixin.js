@@ -1,5 +1,4 @@
 import { default as MessageBox, MessageButton } from '../utils/MessageBox'
-import { resolve } from 'uri-js';
 
 export default {
     data () {
