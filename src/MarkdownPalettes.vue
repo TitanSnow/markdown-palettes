@@ -55,13 +55,15 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="mp-overlay">
             <editor-dialog
                 v-if="showDialog"
                 ref="dialog"
                 :request="dialogRequest"
                 @finish="dialogFinish"
                 @close="closeDialog"/>
+            <editor-messageboxes
+                :messages="messages"/>
         </div>
     </div>
 </template>
@@ -224,12 +226,14 @@ import '@fortawesome/fontawesome-free/css/fontawesome.css'
 
 import Dialog from './components/Dialog/Dialog.vue'
 import PreviewArea from './components/PreviewArea.js'
+import MessageBoxes from './components/MessageBoxes.vue'
 
 import InputAreaMixin from './mixins/InputAreaMixin'
 import PreviewAreaMixin from './mixins/PreviewAreaMixin'
 import ToolbarMixin from './mixins/ToolbarMixin'
 import ActionMixin from './mixins/ActionMixin'
 import KeybindingMixin from './mixins/KeybindingMixin'
+import MessageBoxMixin from './mixins/MessageBoxMixin'
 
 import { defaultConfig, getConfig } from './utils/DefaultConfig'
 import { contentParserFactory } from './parsers/ContentParserFactory'
@@ -238,8 +242,8 @@ import { getText } from './utils/i18n'
 
 export default {
     name: 'markdown-palettes',
-    components: { 'editor-dialog': Dialog, PreviewArea },
-    mixins: [InputAreaMixin, PreviewAreaMixin, KeybindingMixin, ToolbarMixin, ActionMixin],
+    components: { 'editor-dialog': Dialog, PreviewArea, 'editor-messageboxes': MessageBoxes },
+    mixins: [InputAreaMixin, PreviewAreaMixin, KeybindingMixin, ToolbarMixin, ActionMixin, MessageBoxMixin],
     props: {
         value: {
             type: String,
