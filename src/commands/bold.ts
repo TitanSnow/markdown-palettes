@@ -1,4 +1,4 @@
-import { ToolbarButton, key } from './base.ts'
+import { ToolbarButton, key } from './base'
 
 export default class Bold extends ToolbarButton {
     icon = 'fa fa-bold'

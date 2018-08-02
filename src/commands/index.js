@@ -1,4 +1,4 @@
-import { Command } from './base.ts'
+import { Command } from './base'
 import _ from 'lodash'
 const req = require.context('.', false, /\.[jt]sx?$/)
 function issubclass (sub, par) {

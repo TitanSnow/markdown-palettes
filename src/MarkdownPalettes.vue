@@ -234,7 +234,7 @@ import { defaultConfig, getConfig } from './utils/DefaultConfig'
 import { contentParserFactory } from './parsers/ContentParserFactory'
 import InjectLnParser from './parsers/InjectLnParser.js'
 import { getText } from './utils/i18n'
-import { ToolbarButton } from './commands/base.ts'
+import { ToolbarButton } from './commands/base'
 
 export default {
     name: 'markdown-palettes',

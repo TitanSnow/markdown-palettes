@@ -14,7 +14,8 @@ module.exports = {
         resolve: {
             alias: {
                 'css-tree': '@tttnns/undefined'
-            }
+            },
+            extensions: ['.wasm', '.mjs', '.js', '.ts', '.json']
         },
         module: {
             rules: [
