@@ -6,7 +6,7 @@ export default {
     methods: {
         toolbarAction (btn) {
             if (typeof btn.action === 'function') {
-                btn.action.call(this)
+                btn.action()
             } else {
                 this.toolbarHandleActionLegacy(btn.action)
             }
@@ -42,8 +42,8 @@ export default {
         toolbarUpdateKeyBindings () {
             const editorKeyMap = {}
             const globalKeyMap = {}
-            for (const btn of this.toolbarConfig) {
-                const keyBinding = this.ensureValue(btn.keyBinding)
+            for (const btn of this.commands) {
+                const keyBinding = btn.keyBinding
                 if (keyBinding != null) {
                     const callback = () => void this.toolbarAction(btn)
                     const match = /^(.+):\/\/(.+)$/.exec(keyBinding)
@@ -74,11 +74,8 @@ export default {
         this.toolbarUpdateKeyBindings()
     },
     watch: {
-        toolbarConfig: {
-            deep: true,
-            handler () {
-                this.toolbarUpdateKeyBindings()
-            }
+        commands () {
+            this.toolbarUpdateKeyBindings()
         }
     }
 }

@@ -3,6 +3,7 @@
         "@vue/babel-preset-app"
     ],
     "plugins": [
-        "lodash"
+        "lodash",
+        "@babel/plugin-transform-typescript"
     ]
 }

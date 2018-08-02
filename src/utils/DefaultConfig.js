@@ -6,8 +6,8 @@ import MarkdownItVKatex from 'markdown-it-v-katex'
 // import styles
 import 'katex/dist/katex.css'
 
-// import toolbar buttons
-import { defaultBtns, defaultSimpleBtns, getBtns } from '../components/ToolBarBtns/toolbarBtn'
+// import commands
+import { default as commands, getCommand } from '../commands'
 
 import _ from 'lodash'
 
@@ -25,28 +25,26 @@ function mixin (dest, src) {
 export const defaultConfig = {
     previewDisplay: 'normal',
     fullScreen: false,
+    scrollSync: true,
     parsers: [
         MarkdownItV,
         MarkdownItVCodemirrorHighlighter,
         MarkdownItVKatex
     ],
-    toolbarConfig: defaultBtns,
-    bigScreenToolbarConfig: defaultBtns,
-    smallScreenToolbarConfig: defaultSimpleBtns,
     editorOption: {
         mode: 'gfm',
         lineNumbers: true,
         lineWrapping: true
     },
-    scrollSync: true
+    commands
 }
 
-export function getConfig (config) {
+export function getConfig (config, context) {
     const mergedConfig = mixin(_.cloneDeep(defaultConfig), config)
     const processedConfig = {}
     for (const key of Object.keys(defaultConfig)) {
         processedConfig[key] = mergedConfig[key]
     }
-    processedConfig.toolbarConfig = getBtns(processedConfig.toolbarConfig)
+    processedConfig.commands = processedConfig.commands.map(cmd => getCommand(cmd, context))
     return processedConfig
 }

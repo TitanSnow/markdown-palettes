@@ -9,17 +9,16 @@
             <ul class="mp-editor-menu">
                 <li
                     v-for="(item, index) in toolbarBtns"
-                    v-if="item.type == null || item.type === 'button'"
                     :class="{'mp-divider':item.name === '|'}"
                     :key="item.name + index">
                     <span v-if="item.name === '|'">|</span>
                     <a
                         v-else
-                        :title="t(ensureValue(item.title)) + (ensureValue(item.keyBinding) ? ` (${ensureValue(item.keyBinding)})`: '')"
+                        :title="item.primaryTitle + item.keyBinding"
                         unselectable="on"
                         @click="toolbarAction(item)">
                         <i
-                            :class="['fa', ensureValue(item.icon)]"
+                            :class="item.icon"
                             unselectable="on"/>
                     </a>
                 </li>
@@ -235,6 +234,7 @@ import { defaultConfig, getConfig } from './utils/DefaultConfig'
 import { contentParserFactory } from './parsers/ContentParserFactory'
 import InjectLnParser from './parsers/InjectLnParser.js'
 import { getText } from './utils/i18n'
+import { ToolbarButton } from './commands/base.ts'
 
 export default {
     name: 'markdown-palettes',
@@ -254,7 +254,7 @@ export default {
     },
     data () {
         return {
-            ...getConfig(this.config),
+            ...getConfig(this.config, this),
             editor: null,
             code: ''
         }
@@ -264,11 +264,7 @@ export default {
             return contentParserFactory([...this.parsers, InjectLnParser])
         },
         toolbarBtns () {
-            if (window.screen.width > 768) {
-                return this.config.bigScreenToolbarConfig
-            } else {
-                return this.config.smallScreenToolbarConfig
-            }
+            return this.commands.filter(cmd => cmd instanceof ToolbarButton)
         }
     },
     watch: {

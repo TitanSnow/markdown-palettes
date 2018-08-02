@@ -9,7 +9,7 @@ export default {
     methods: {
         insertCode (code) {
             if (code) {
-                let insert = this.ensureValue(code)
+                let insert = code
                 if (!Array.isArray(insert)) {
                     insert = [insert, '']
                 }
@@ -56,7 +56,7 @@ export default {
             this.openDialog(request)
         },
         execCommand (name) {
-            const [btn] = this.toolbarConfig.filter(({ name: btnName }) => btnName === name)
+            const [btn] = this.commands.filter(({ name: btnName }) => btnName === name)
             if (btn) this.toolbarAction(btn)
         }
     }
