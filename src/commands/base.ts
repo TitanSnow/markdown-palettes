@@ -1,8 +1,11 @@
 import { getText } from '../utils/i18n'
+import CodeMirror from 'codemirror'
 
 declare function getText(text: string, langs?: string[]): string
 
 export enum ModifierKey {
+    Shift = 'Shift',
+    Cmd = 'Cmd',
     Ctrl = 'Ctrl',
     Alt = 'Alt'
 }
@@ -14,18 +17,42 @@ export enum KeyBindingScope {
 
 export type PrimaryKey = string
 
+function firstLetterUpperCase (word: string) {
+    if (word) {
+        return word[0].toUpperCase() + word.substr(1).toLowerCase()
+    } else return ''
+}
+
 export class KeyBinding {
     constructor (
         public scope: KeyBindingScope,
-        public modifierKeys: ModifierKey[],
+        public modifierKeys: Set<ModifierKey>,
         public primaryKey: PrimaryKey
     ) {}
     static parse (keyBindingStr: string) {
         const match = /^(.+):\/\/(.+)$/.exec(keyBindingStr)
         const scope = match![1]
-        const keysStr = match![2]
+        const keysStr = KeyBinding.normalizeKeyName(match![2])
         const keys = keysStr.split('-')
-        return new KeyBinding(scope as KeyBindingScope, keys.slice(0, -1) as ModifierKey[], keys.slice(-1)[0])
+        return new KeyBinding(
+            KeyBindingScope[scope as keyof typeof KeyBindingScope],
+            new Set(keys.slice(0, -1).map(modifier => ModifierKey[modifier as keyof typeof ModifierKey])),
+            firstLetterUpperCase(keys.slice(-1)[0])
+        )
+    }
+    static normalizeKeyName (keyname: string): string {
+        return Object.keys(CodeMirror.normalizeKeyMap({ [keyname]: null }))[0]
+    }
+    stringify () {
+        let result = ''
+        if (this.modifierKeys.size) {
+            result += [...this.modifierKeys.values()].join('-')
+            result += '-'
+        }
+        result += this.primaryKey
+        result = KeyBinding.normalizeKeyName(result)
+        result = this.scope + '://' + result
+        return result
     }
 }
 
