@@ -1,5 +1,7 @@
 import { getText } from '../utils/i18n'
 
+declare function getText(text: string, langs?: string[]): string
+
 export enum ModifierKey {
     Ctrl = 'Ctrl',
     Alt = 'Alt'
@@ -20,14 +22,14 @@ export class KeyBinding {
     ) {}
     static parse (keyBindingStr: string) {
         const match = /^(.+):\/\/(.+)$/.exec(keyBindingStr)
-        const scope = match[1]
-        const keysStr = match[2]
+        const scope = match![1]
+        const keysStr = match![2]
         const keys = keysStr.split('-')
-        return new KeyBinding(KeyBindingScope[scope], keys.slice(0, -1).map(key => ModifierKey[key]), keys.slice(-1)[0])
+        return new KeyBinding(scope as KeyBindingScope, keys.slice(0, -1) as ModifierKey[], keys.slice(-1)[0])
     }
 }
 
-export function key (literals, ...args) {
+export function key (literals: TemplateStringsArray, ...args: any[]) {
     let keyStr = ''
     literals.forEach((s, idx) => {
         keyStr += s
@@ -42,9 +44,9 @@ export abstract class Command {
     get name () {
         return this.constructor.name
     }
-    icon: string
-    title: string
-    keyBinding: KeyBinding
+    abstract icon: string
+    abstract title: string
+    keyBinding: KeyBinding | void = void 0
     $: any
     get primaryTitle () {
         return getText(this.title)
