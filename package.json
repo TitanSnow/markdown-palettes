@@ -1,0 +1,36 @@
+{
+  "name": "markdown-palettes",
+  "version": "1.0.0-dev.1",
+  "description": "Markdown*Palettes: Markdown editor for the modern web.",
+  "scripts": {
+    "build": "cross-env BABEL_ENV=node cross-env babel-node scripts/build.js",
+    "dev": "parcel serve demo/index.html --no-autoinstall"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luogu-dev/markdown-palettes.git"
+  },
+  "author": "Luogu Dev Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luogu-dev/markdown-palettes/issues"
+  },
+  "homepage": "https://github.com/luogu-dev/markdown-palettes#readme",
+  "devDependencies": {
+    "@babel/cli": "7.1.2",
+    "@babel/core": "7.1.2",
+    "@babel/generator": "7.1.2",
+    "@babel/node": "7.0.0",
+    "@babel/parser": "7.1.2",
+    "@babel/plugin-syntax-dynamic-import": "7.0.0",
+    "@babel/plugin-syntax-object-rest-spread": "7.0.0",
+    "@babel/preset-env": "7.1.0",
+    "cross-env": "5.2.0",
+    "parcel-bundler": "1.10.1",
+    "shelljs": "0.8.2",
+    "vue-template-compiler": "2.5.17"
+  },
+  "dependencies": {
+    "vue": "2.5.x"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "env": {
+    "node": {
+      "presets": [
+        ["@babel/preset-env", {
+          "targets": {
+            "node": "current"
+          }
+        }]
+      ]
+    },
+    "browser": {
+      "presets": [
+        ["@babel/preset-env", {
+          "targets": {
+            "browsers": ["chrome >= 63", "Safari >= 11.1"]
+          },
+          "modules": false
+        }]
+      ],
+      "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-syntax-object-rest-spread"
+      ]
+    }
+  }
+}
