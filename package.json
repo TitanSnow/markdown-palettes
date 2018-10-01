@@ -4,7 +4,7 @@
   "description": "Markdown*Palettes: Markdown editor for the modern web.",
   "scripts": {
     "build": "cross-env BABEL_ENV=node babel-node scripts/build.js",
-    "dev": "parcel serve demo/index.html --no-autoinstall"
+    "dev": "cross-env BABEL_ENV=node babel-node scripts/dev.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "@babel/node": "7.0.0",
     "@babel/parser": "7.1.2",
     "@babel/preset-env": "7.1.0",
+    "chokidar": "2.0.4",
     "cross-env": "5.2.0",
     "cssnano": "4.1.4",
     "glob": "7.1.3",
