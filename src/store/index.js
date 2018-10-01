@@ -13,7 +13,7 @@ export default {
   actions: {
     updateValue({ commit, dispatch }, value) {
       commit('editor/setValue', value)
-      return dispatch('preview/updatePreview', { source: value })
+      return dispatch('preview/render')
     },
   },
 }
