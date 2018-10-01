@@ -3,6 +3,8 @@ import { parseComponent as vueParseComponent, compile as vueCompile } from 'vue-
 import { parse as babelParse} from '@babel/parser'
 import babelGenerate from '@babel/generator'
 import stylus from 'stylus'
+import postcss from 'postcss'
+import cssnano from 'cssnano'
 
 export function vue(filename, content) {
   const { template: { content: templateContent }, script: { content: scriptContent }} = vueParseComponent(content)
@@ -55,6 +57,9 @@ export function js(filename, content) {
 
 export async function styl(filename, content) {
   const css = await promisify(stylus.render)(content, { filename })
+  const { css: minified } = await postcss([cssnano({
+    preset: 'default'
+  })]).process(css, {from: filename})
   const ast = {
     "type": "File",
     "program": {
@@ -93,7 +98,7 @@ export async function styl(filename, content) {
             "arguments": [
               {
                 "type": "StringLiteral",
-                "value": css
+                "value": minified
               }
             ]
           }
