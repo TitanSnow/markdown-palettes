@@ -54,7 +54,10 @@ export function js(filename, content) {
   return new Promise((resolve, reject) => {
     babelTransform(
       content,
-      { plugins: ['babel-plugin-emotion'] },
+      {
+        plugins: ['babel-plugin-emotion'],
+        parserOpts: { plugins: ['objectRestSpread'] },
+      },
       (err, result) => {
         if (err) reject(err)
         else

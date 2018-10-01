@@ -1,15 +1,18 @@
 <template>
   <div :class="s.state.theme.className">
-    <editor />
+    <toolbar />
+    <sides />
   </div>
 </template>
 
 <script>
 import Base from './Base'
-import Editor from './Editor'
+import Toolbar from './Toolbar'
+import Sides from './Sides'
 
 export default {
-  components: { Editor },
+  name: 'Container',
+  components: { Toolbar, Sides },
   extends: Base,
 }
 </script>

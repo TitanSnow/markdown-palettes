@@ -1,7 +1,8 @@
 <template>
   <textarea
     :value="s.state.editor.value"
-    @input="s.commit('editor/setValue', $event.target.value)"
+    class="editor"
+    @input="s.dispatch('updateValue', $event.target.value)"
   />
 </template>
 
@@ -9,6 +10,7 @@
 import Base from './Base'
 
 export default {
+  name: 'Editor',
   extends: Base,
 }
 </script>

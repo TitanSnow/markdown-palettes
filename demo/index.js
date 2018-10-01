@@ -4,5 +4,8 @@ import MarkdownPalettes from '../esm'
 // eslint-disable-next-line
 const app = new Vue({
   el: '#demo',
-  render: h => h(MarkdownPalettes, { domProps: { id: 'demo' } }),
+  render: h =>
+    h(MarkdownPalettes, {
+      domProps: { id: 'demo', style: 'min-height: 500px' },
+    }),
 })
