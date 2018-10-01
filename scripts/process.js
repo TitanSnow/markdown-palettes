@@ -16,8 +16,11 @@ export async function process(filename) {
   const ext = extname(filename).slice(1)
   if (ext in transform) {
     console.log('Processing: ' + filename)
-    const content = await readFileAsync('src/' + filename, {encoding: 'utf8'})
-    const { filename: newFilename, content: newContent } = await transform[ext](filename, content)
+    const content = await readFileAsync('src/' + filename, { encoding: 'utf8' })
+    const { filename: newFilename, content: newContent } = await transform[ext](
+      filename,
+      content
+    )
     await mkdirpAsync('esm/' + dirname(newFilename))
     await writeFileAsync('esm/' + newFilename, newContent)
   } else {
@@ -32,6 +35,6 @@ async function getFiles() {
 export async function processAll() {
   try {
     await rimrafAsync('esm')
-  } catch {}
+  } catch (_) {}
   return await Promise.all((await getFiles()).map(fn => process(fn)))
 }

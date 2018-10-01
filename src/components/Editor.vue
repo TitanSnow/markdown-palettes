@@ -1,6 +1,6 @@
 <template>
-  <textarea 
-    :value="s.state.editor.value" 
+  <textarea
+    :value="s.state.editor.value"
     @input="s.commit('editor/setValue', $event.target.value)"
   />
 </template>

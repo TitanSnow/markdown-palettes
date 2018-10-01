@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="s.state.theme.className">
     <editor />
   </div>
 </template>

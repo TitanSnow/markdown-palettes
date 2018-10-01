@@ -1,7 +1,7 @@
 export default {
   namespaced: true,
   state: () => ({
-    value: 'awd',
+    value: '',
   }),
   mutations: {
     setValue(state, value) {

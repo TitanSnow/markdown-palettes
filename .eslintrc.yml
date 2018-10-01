@@ -17,3 +17,6 @@ rules:
     - semi: false
       singleQuote: true
       trailingComma: es5
+  no-empty:
+    - error
+    - allowEmptyCatch: true
