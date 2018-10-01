@@ -1,6 +1,6 @@
 <template>
   <div>
-    <editor/>
+    <editor />
   </div>
 </template>
 
@@ -9,7 +9,7 @@ import Base from './Base'
 import Editor from './Editor'
 
 export default {
+  components: { Editor },
   extends: Base,
-  components: {Editor}
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <container/>
+  <container />
 </template>
 
 <script>
@@ -10,8 +10,8 @@ import Container from './Container'
 export default {
   name: 'MarkdownPalettes',
   provide: () => ({
-    s: new Vuex(store)
+    s: new Vuex(store),
   }),
-  components: {Container}
+  components: { Container },
 }
 </script>

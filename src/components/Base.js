@@ -1,3 +1,3 @@
 export default {
-  inject: ['s']
+  inject: ['s'],
 }
