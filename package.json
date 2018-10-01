@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "emotion": "9.2.x",
-    "vue": "2.5.x"
+    "vue": "2.5.x",
+    "vuex": "3.0.x"
   }
 }
