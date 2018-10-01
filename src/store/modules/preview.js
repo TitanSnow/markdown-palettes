@@ -10,16 +10,18 @@ export default {
     setRendered(state, rendered) {
       state.rendered = rendered
     },
-    startRenderSession(state, session) {
+    newRenderSession(state, session) {
+      if (state.renderSession) state.renderSession.cancel()
       state.renderSession = session
     },
   },
   actions: {
-    async render({ commit, state, rootState }) {
-      const session = Symbol()
-      commit('startRenderSession', session)
-      const rendered = await render(rootState.editor.value)
-      if (state.renderSession === session) commit('setRendered', rendered)
+    render({ commit, rootState }) {
+      const session = render(rootState.editor.value)
+      commit('newRenderSession', session)
+      return session.promise.then(
+        rendered => (commit('setRendered', rendered), void 0)
+      )
     },
   },
 }
