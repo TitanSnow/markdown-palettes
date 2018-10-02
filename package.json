@@ -39,7 +39,9 @@
   },
   "dependencies": {
     "emotion": "9.2.x",
-    "markdown-it": "8.4.2",
+    "remark-html": "8.0.x",
+    "remark-parse": "5.0.x",
+    "unified": "7.0.x",
     "vue": "2.5.x",
     "vuex": "3.0.x"
   }

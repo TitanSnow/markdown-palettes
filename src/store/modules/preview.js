@@ -1,13 +1,15 @@
-import render from '../../utils/render'
+import render from '../../utils/md'
 
 export default {
   namespaced: true,
   state: () => ({
+    parsed: null,
     rendered: null,
     renderSession: null,
   }),
   mutations: {
-    setRendered(state, rendered) {
+    finishRenderSession(state, { parsed, rendered }) {
+      state.parsed = parsed
       state.rendered = rendered
     },
     newRenderSession(state, session) {
@@ -20,7 +22,7 @@ export default {
       const session = render(rootState.editor.value)
       commit('newRenderSession', session)
       return session.promise.then(
-        rendered => (commit('setRendered', rendered), void 0)
+        result => void commit('finishRenderSession', result)
       )
     },
   },
