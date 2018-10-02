@@ -11,6 +11,7 @@ export default {
     finishRenderSession(state, { parsed, rendered }) {
       state.parsed = parsed
       state.rendered = rendered
+      state.renderSession = null
     },
     newRenderSession(state, session) {
       if (state.renderSession) state.renderSession.cancel()
