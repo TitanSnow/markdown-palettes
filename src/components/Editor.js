@@ -5,14 +5,14 @@ export default {
   extends: Base,
   created() {
     const h = this.$createElement
-    this.editorInput = h('pre', {
+    this.editorInput = h('textarea', {
       staticClass: 'editor-input',
       on: {
-        input: ({ target: { innerText: value } }) =>
-          this.s.dispatch('updateValue', value),
+        input: ({ target: { value } }) =>
+          void this.s.dispatch('updateValue', value),
       },
-      attrs: {
-        contenteditable: 'true',
+      domProps: {
+        value: this.s.state.editor.value,
       },
     })
   },

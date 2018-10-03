@@ -19,7 +19,13 @@ export default css`
 
   .editor-input {
     color: transparent;
+    background: transparent;
     caret-color: black;
+    resize: none;
+    ::selection {
+      color: transparent;
+      background: rgba(0, 0, 0, 0.3);
+    }
   }
 
   .editor-input,
@@ -32,5 +38,13 @@ export default css`
     margin: 0;
     padding: 0;
     border: none;
+    font: inherit;
+    font-family: monospace;
+    appearance: none;
+    display: block;
+    white-space: pre;
+    overflow-wrap: normal;
+    direction: inherit;
+    unicode-bidi: inherit;
   }
 `
