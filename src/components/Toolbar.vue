@@ -1,6 +1,6 @@
 <template>
   <div class="toolbar">
-    Hello World!
+    This is Markdown*Palettes 'next'!
   </div>
 </template>
 
