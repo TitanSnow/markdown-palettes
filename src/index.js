@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import VueAsyncComputed from 'vue-async-computed'
 import MarkdownPalettes from './components/Root'
 
-Vue.use(Vuex)
+Vue.use(VueAsyncComputed)
 
 export default MarkdownPalettes

@@ -8,11 +8,10 @@ export default {
     this.editorInput = h('textarea', {
       staticClass: 'editor-input',
       on: {
-        input: ({ target: { value } }) =>
-          void this.s.dispatch('updateValue', value),
+        input: ({ target: { value } }) => void (this.s.source = value),
       },
       domProps: {
-        value: this.s.state.editor.value,
+        value: this.s.source,
       },
     })
   },
@@ -25,8 +24,8 @@ export default {
   methods: {
     createViewElement() {
       const h = this.$createElement
-      const src = this.s.state.editor.value
-      const parsed = this.s.state.preview.parsed
+      const src = this.s.source
+      const parsed = this.s.ast
       let cds = []
       if (parsed) {
         const root = {

@@ -1,2 +1,3 @@
-export { default as className } from './debug'
-export const name = 'debug'
+import className from './debug'
+export default className
+export { name } from './debug'

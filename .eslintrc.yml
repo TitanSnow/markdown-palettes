@@ -20,3 +20,5 @@ rules:
   no-empty:
     - error
     - allowEmptyCatch: true
+  vue/component-name-in-template-casing:
+    - error

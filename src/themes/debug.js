@@ -7,3 +7,5 @@ export default css`
     outline: 1px solid lightgray;
   }
 `
+
+export const name = 'debug'

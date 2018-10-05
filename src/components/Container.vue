@@ -1,18 +1,23 @@
 <template>
-  <div :class="s.state.theme.className">
-    <toolbar />
-    <sides />
+  <div :class="s.theme.className">
+    <Toolbar />
+    <Split>
+      <Editor slot="left" />
+      <Preview slot="right" />
+    </Split>
   </div>
 </template>
 
 <script>
 import Base from './Base'
 import Toolbar from './Toolbar'
-import Sides from './Sides'
+import Split from './Split'
+import Editor from './Editor'
+import Preview from './Preview'
 
 export default {
   name: 'Container',
-  components: { Toolbar, Sides },
   extends: Base,
+  components: {Toolbar, Split, Editor, Preview}
 }
 </script>

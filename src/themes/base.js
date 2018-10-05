@@ -8,15 +8,20 @@ export default css`
     flex-grow: 0;
   }
 
-  .sides {
+  .split {
     display: flex;
     flex-grow: 99;
+  }
+  .split-item {
+    display: flex;
+    > * {
+      width: 100%;
+    }
   }
 
   .editor {
     position: relative;
   }
-
   .editor-input {
     color: transparent;
     background: transparent;
@@ -27,7 +32,6 @@ export default css`
       background: rgba(0, 0, 0, 0.3);
     }
   }
-
   .editor-input,
   .editor-view {
     position: absolute;
@@ -48,3 +52,5 @@ export default css`
     unicode-bidi: inherit;
   }
 `
+
+export const name = 'base'

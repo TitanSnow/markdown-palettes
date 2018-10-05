@@ -43,6 +43,6 @@
     "remark-parse": "5.0.x",
     "unified": "7.0.x",
     "vue": "2.5.x",
-    "vuex": "3.0.x"
+    "vue-async-computed": "3.4.x"
   }
 }
