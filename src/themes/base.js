@@ -50,6 +50,21 @@ export default css`
     overflow-wrap: normal;
     direction: inherit;
     unicode-bidi: inherit;
+    overflow: auto;
+  }
+  .editor-view {
+    .heading {
+      font-weight: bold;
+      color: blue;
+    }
+    .link {
+      color: rgb(0, 0, 238);
+      color: -webkit-link;
+      text-decoration: underline;
+    }
+    .image {
+      color: green;
+    }
   }
 `
 

@@ -3,26 +3,36 @@ import Base from './Base'
 export default {
   name: 'Editor',
   extends: Base,
+  data: () => ({
+    scrollLeft: 0,
+    scrollTop: 0,
+  }),
   created() {
-    const h = this.$createElement
-    this.editorInput = h('textarea', {
-      staticClass: 'editor-input',
-      on: {
-        input: ({ target: { value } }) => void (this.s.source = value),
-      },
-      domProps: {
-        value: this.s.source,
-      },
-    })
+    this.onScroll = ({ target: { scrollTop, scrollLeft } }) =>
+      void ((this.scrollLeft = scrollLeft), (this.scrollTop = scrollTop))
+    this.onInput = ({ target: { value } }) => void (this.s.source = value)
   },
   render(h) {
     return h('div', { staticClass: 'editor' }, [
-      this.createViewElement(),
-      this.editorInput,
+      this.EditorView,
+      this.EditorInput,
     ])
   },
-  methods: {
-    createViewElement() {
+  computed: {
+    EditorInput() {
+      const h = this.$createElement
+      return h('textarea', {
+        staticClass: 'editor-input',
+        on: {
+          input: this.onInput,
+          scroll: this.onScroll,
+        },
+        domProps: {
+          value: this.s.source,
+        },
+      })
+    },
+    EditorView() {
       const h = this.$createElement
       const src = this.s.source
       const parsed = this.s.ast
@@ -53,6 +63,9 @@ export default {
           switch (type) {
             case 'strong':
             case 'emphasis':
+            case 'heading':
+            case 'link':
+            case 'image':
               hit = true
               break
           }
@@ -65,6 +78,7 @@ export default {
                   end,
                   children: [],
                   parent: currentNode,
+                  originalNode: node,
                 }) - 1
               ]
           }
@@ -75,11 +89,12 @@ export default {
         }
         dfs(parsed)
         const dfsCreateElem = node => {
-          const { type, start, end, children, parent } = node
+          const { type, start, end, children, parent, originalNode } = node
           const idx = parent.children.indexOf(node)
           const lastOffset =
             idx === 0 ? parent.start : parent.children[idx - 1].end
-          let tag
+          let tag,
+            props = {}
           switch (type) {
             case 'void':
               tag = 'template'
@@ -89,6 +104,18 @@ export default {
               break
             case 'emphasis':
               tag = 'em'
+              break
+            case 'heading':
+              tag = 'span'
+              props = { staticClass: `heading heading-${originalNode.depth}` }
+              break
+            case 'link':
+              tag = 'span'
+              props = { staticClass: 'link' }
+              break
+            case 'image':
+              tag = 'span'
+              props = { staticClass: 'image' }
               break
           }
           const cds = [
@@ -100,12 +127,20 @@ export default {
           ]
           const r = [src.slice(lastOffset, start)]
           if (tag === 'template') r.push(...cds)
-          else r.push(h(tag, {}, cds))
+          else r.push(h(tag, props, cds))
           return r
         }
         cds = [dfsCreateElem(root)]
       }
-      return h('pre', { staticClass: 'editor-view' }, cds)
+      return h(
+        'pre',
+        {
+          staticClass: 'editor-view',
+          on: { scroll: this.onScroll },
+          domProps: { scrollLeft: this.scrollLeft, scrollTop: this.scrollTop },
+        },
+        cds
+      )
     },
   },
 }
