@@ -1,9 +1,9 @@
 import unified from 'unified'
 import remarkParse from 'remark-parse'
-import remarkHtml from 'remark-html'
+import remarkVdom from 'remark-vdom'
 
 const parser = unified().use(remarkParse)
-const renderer = unified().use(remarkHtml)
+const renderer = unified().use(remarkVdom)
 
 export async function parse(content) {
   return parser.parse(content)
