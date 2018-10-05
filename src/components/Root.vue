@@ -4,22 +4,27 @@
 
 <script>
 import Container from './Container'
-import { default as defaultThemeClassName, name as defaultThemeName } from '../themes'
+import {
+  default as defaultThemeClassName,
+  name as defaultThemeName,
+} from '../themes'
 import { parse, render } from '../utils/md'
 
 export default {
   name: 'MarkdownPalettes',
+  components: { Container },
   props: {
     value: {
       type: String,
       default: '',
     },
     theme: {
-      validator: themeObj => themeObj.hasOwnProperty('name') && themeObj.hasOwnProperty('className'),
+      validator: themeObj =>
+        themeObj.hasOwnProperty('name') && themeObj.hasOwnProperty('className'),
       default: () => ({
         name: defaultThemeName,
         className: defaultThemeClassName,
-      })
+      }),
     },
   },
   data() {
@@ -42,13 +47,12 @@ export default {
     },
     rendered() {
       return render(this.ast)
-    }
+    },
   },
   provide() {
     return {
-      s: this
+      s: this,
     }
   },
-  components: { Container }
 }
 </script>

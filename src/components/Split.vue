@@ -1,12 +1,18 @@
 <template>
   <div class="split">
-    <div :style="{
-      width: leftWidthCSS
-    }" class="split-item"><slot name="left" /></div>
+    <div 
+      :style="{
+        width: leftWidthCSS
+      }" 
+      class="split-item"
+    ><slot name="left" /></div>
 
-    <div :style="{
-      width: rightWidthCSS
-    }" class="split-item"><slot name="right"/></div>
+    <div 
+      :style="{
+        width: rightWidthCSS
+      }" 
+      class="split-item"
+    ><slot name="right" /></div>
   </div>
 </template>
 
@@ -22,7 +28,7 @@ export default {
     },
     rightWidthCSS() {
       return (1 - this.s.splitAllocation) * 100 + '%'
-    }
-  }
+    },
+  },
 }
 </script>

@@ -17,7 +17,7 @@ import Preview from './Preview'
 
 export default {
   name: 'Container',
+  components: { Toolbar, Split, Editor, Preview },
   extends: Base,
-  components: {Toolbar, Split, Editor, Preview}
 }
 </script>
