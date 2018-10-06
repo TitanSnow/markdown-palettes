@@ -132,6 +132,7 @@ export default {
         }
         cds = [dfsCreateElem(root)]
       }
+      cds.push('\n')
       return cds
     },
     EditorView() {
