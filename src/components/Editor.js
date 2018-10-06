@@ -32,7 +32,7 @@ export default {
         },
       })
     },
-    EditorView() {
+    EditorViewInner() {
       const h = this.$createElement
       const src = this.s.source
       const parsed = this.s.ast
@@ -132,6 +132,10 @@ export default {
         }
         cds = [dfsCreateElem(root)]
       }
+      return cds
+    },
+    EditorView() {
+      const h = this.$createElement
       return h(
         'pre',
         {
@@ -139,7 +143,7 @@ export default {
           on: { scroll: this.onScroll },
           domProps: { scrollLeft: this.scrollLeft, scrollTop: this.scrollTop },
         },
-        cds
+        this.EditorViewInner
       )
     },
   },
