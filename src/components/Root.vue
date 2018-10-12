@@ -3,12 +3,16 @@
 </template>
 
 <script>
+import EventEmitter from 'events'
+import DiffMatchPatch from 'diff-match-patch'
 import Container from './Container'
 import {
   default as defaultThemeClassName,
   name as defaultThemeName,
 } from '../themes'
-import { parse, render } from '../utils/md'
+import SyncServer from '../render/SyncServer'
+
+const dmp = new DiffMatchPatch()
 
 export default {
   name: 'MarkdownPalettes',
@@ -26,6 +30,10 @@ export default {
         className: defaultThemeClassName,
       }),
     },
+    renderServer: {
+      validator: server => !!server.postMessage,
+      default: () => new SyncServer(),
+    },
   },
   data() {
     return {
@@ -34,25 +42,24 @@ export default {
     }
   },
   watch: {
-    source(val) {
+    source(val, oldVal) {
       if (val !== this.value) this.$emit('input', val)
+      const patches = dmp.patch_make(oldVal, val)
+      this.renderServer.postMessage({ event: 'change', data: patches })
     },
     value(val) {
       this.source = val
-    },
-  },
-  asyncComputed: {
-    ast() {
-      return parse(this.source)
-    },
-    rendered() {
-      return render(this.ast)
     },
   },
   provide() {
     return {
       s: this,
     }
+  },
+  created() {
+    this.renderServerEvents = new EventEmitter()
+    this.renderServer.onmessage = ({ data: { event, data } }) =>
+      void this.renderServerEvents.emit(event, data)
   },
 }
 </script>

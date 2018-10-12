@@ -9,7 +9,7 @@ processAll().then(() => {
       switch (event) {
         case 'add':
         case 'change':
-          process(filename.slice(4))
+          setTimeout(() => process(filename.slice(4)), 50)
       }
     })
 })
