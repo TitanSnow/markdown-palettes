@@ -1,6 +1,9 @@
 <template>
-  <div ref="root">
-    <Container />
+  <div 
+    ref="root" 
+    style="height: 100%"
+  >
+    <Container style="height: 100%" />
   </div>
 </template>
 
