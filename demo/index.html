@@ -1,8 +1,23 @@
 <!doctype html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Markdown*Palettes Demo</title>
-<div id="demo"></div>
-<noscript>You need to enable JavaScript to run this app.</noscript>
-<script src="../esm/index.js"></script>
-<markdown-palettes></markdown-palettes>
+<html lang="en">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Markdown*Palettes Demo</title>
+  <div id="demo"></div>
+  <noscript><h1>You need to enable JavaScript to run this demo.</h1></noscript>
+  <div id="nowc">
+    <h1>Your browser needs to support Web Components to run this demo.</h1>
+    <p>If you use Firefox, you needs to set
+    <ul>
+      <li><code>dom.webcomponents.customelements.enabled</code></li>
+      <li><code>dom.webcomponents.shadowdom.enabled</code></li>
+    </ul>
+    <p>to true in <code>about:config</code></p>
+  </div>
+  <script>
+    if (customElements && Element.prototype.attachShadow)
+      document.getElementById('nowc').style.display = 'none'
+  </script>
+  <script src="../esm/index.js"></script>
+  <markdown-palettes></markdown-palettes>
+</html>
