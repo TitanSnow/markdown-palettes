@@ -5,7 +5,7 @@
   "scripts": {
     "build": "cross-env BABEL_ENV=node babel-node scripts/build.js",
     "dev": "cross-env BABEL_ENV=node babel-node scripts/dev.js",
-    "lint": "eslint src/**/*.{js,vue} scripts demo"
+    "lint": "eslint --ext=js,vue src"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,8 @@
     "vue-template-compiler": "2.5.17"
   },
   "dependencies": {
+    "@vue/web-component-wrapper": "1.2.x",
+    "create-emotion": "9.2.x",
     "diff-match-patch": "1.0.x",
     "emotion": "9.2.x",
     "events": "3.0.x",
@@ -45,7 +47,6 @@
     "remark-vdom": "6.0.x",
     "unified": "7.0.x",
     "virtual-dom": "2.1.x",
-    "vue": "2.5.x",
-    "vue-async-computed": "3.4.x"
+    "vue": "2.5.x"
   }
 }

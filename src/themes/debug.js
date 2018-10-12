@@ -1,4 +1,4 @@
-import { css } from 'emotion'
+import { css } from './emotion'
 import base from './base'
 
 export default css`

@@ -1,5 +1,7 @@
 <template>
-  <Container />
+  <div ref="root">
+    <Container />
+  </div>
 </template>
 
 <script>
@@ -9,6 +11,7 @@ import Container from './Container'
 import {
   default as defaultThemeClassName,
   name as defaultThemeName,
+  container as styleContainer,
 } from '../themes'
 import SyncServer from '../render/SyncServer'
 
@@ -60,6 +63,9 @@ export default {
     this.renderServerEvents = new EventEmitter()
     this.renderServer.onmessage = ({ data: { event, data } }) =>
       void this.renderServerEvents.emit(event, data)
+  },
+  mounted() {
+    this.$refs.root.appendChild(styleContainer.cloneNode(true))
   },
 }
 </script>
