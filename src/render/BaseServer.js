@@ -86,6 +86,6 @@ export default class BaseServer extends EventEmitter {
   }
 
   async renderHighlight(ast) {
-    return new VNode('div', {}, [new VText(this.source)])
+    return new VNode('div', {}, [new VText(this.source), new VText('\n')])
   }
 }
