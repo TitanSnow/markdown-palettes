@@ -14,7 +14,7 @@
 
 <script>
 import Base from './Base'
-import patch from 'virtual-dom/patch'
+import patch from '../vdom/patch'
 
 export default {
   name: 'Editor',
@@ -29,10 +29,14 @@ export default {
   },
   mounted() {
     const viewElem = this.$refs.view
-    this.s.renderServerEvents.on('didDiffHighlight', async function(patches) {
-      await Promise.resolve()
-      patch(viewElem, patches)
-    })
+    this.s.renderServerEvents.on(
+      'didDiffHighlight',
+      async function(patches) {
+        await Promise.resolve()
+        patch(viewElem, patches)
+        this.syncScroll()
+      }.bind(this)
+    )
   },
   methods: {
     syncScroll() {

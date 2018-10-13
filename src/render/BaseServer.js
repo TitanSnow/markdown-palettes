@@ -1,11 +1,11 @@
 import EventEmitter from 'events'
 import DiffMatchPatch from 'diff-match-patch'
-import diff from 'virtual-dom/diff'
-import VNode from 'virtual-dom/vnode/vnode'
-import VText from 'virtual-dom/vnode/vtext'
+import diff from '../vdom/diff'
+import VNode from '../vdom/vnode/vnode'
+import VText from '../vdom/vnode/vtext'
 import unified from 'unified'
 import remarkParser from 'remark-parse'
-import remarkVdom from 'remark-vdom'
+import remarkVdom from './remark-vdom'
 
 const dmp = new DiffMatchPatch()
 
@@ -27,25 +27,25 @@ export default class BaseServer extends EventEmitter {
       // start new session
       const session = (this.session = Symbol())
       await Promise.resolve()
-      if (session !== this.session) return
       this.run(session)
     })
   }
 
-  postMessage({ event, data }) {
-    this.emit(event, data)
-  }
-
   async run(session) {
     // parse
+    if (session !== this.session) return
     const ast = await this.parse(this.source)
     if (session !== this.session) return
     this.emit('didParse', ast)
+    await this.nextTick()
     // highlight
+    if (session !== this.session) return
     const highlightPatches = await this.diffHighlight(ast)
     if (session !== this.session) return
     this.emit('didDiffHighlight', highlightPatches)
+    await this.nextTick()
     // preview
+    if (session !== this.session) return
     const previewPatches = await this.diffPreview(ast)
     if (session !== this.session) return
     this.emit('didDiffPreview', previewPatches)

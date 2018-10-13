@@ -66,6 +66,10 @@ export default css`
       color: green;
     }
   }
+
+  .preview {
+    overflow: auto;
+  }
 `
 
 export const name = 'base'

@@ -1,6 +1,6 @@
 <template>
-  <div 
-    ref="root" 
+  <div
+    ref="root"
     style="height: 100%"
   >
     <Container style="height: 100%" />
@@ -56,6 +56,14 @@ export default {
     value(val) {
       this.source = val
     },
+    renderServer: {
+      immediate: true,
+      handler(newServer, oldServer) {
+        if (oldServer) oldServer.onmessage = null
+        newServer.onmessage = ({ data: { event, data } }) =>
+          void this.renderServerEvents.emit(event, data)
+      },
+    },
   },
   provide() {
     return {
@@ -64,8 +72,6 @@ export default {
   },
   created() {
     this.renderServerEvents = new EventEmitter()
-    this.renderServer.onmessage = ({ data: { event, data } }) =>
-      void this.renderServerEvents.emit(event, data)
   },
   mounted() {
     this.$refs.root.appendChild(styleContainer.cloneNode(true))

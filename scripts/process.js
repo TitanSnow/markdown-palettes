@@ -24,7 +24,7 @@ export async function process(filename) {
     await mkdirpAsync('esm/' + dirname(newFilename))
     await writeFileAsync('esm/' + newFilename, newContent)
   } else {
-    throw new Error('Unknown file type: ' + filename)
+    console.log('Ignored: ' + filename)
   }
 }
 

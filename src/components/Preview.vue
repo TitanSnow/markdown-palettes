@@ -7,7 +7,7 @@
 
 <script>
 import Base from './Base'
-import patch from 'virtual-dom/patch'
+import patch from '../vdom/patch'
 
 export default {
   name: 'Preview',

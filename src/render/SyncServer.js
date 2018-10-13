@@ -7,8 +7,18 @@ export default class SyncServer extends BaseServer {
       await Promise.resolve()
       if (this.onmessage) this.onmessage({ data: { event: event, data: data } })
     }
-    this.on('didParse', dispatch.bind(this, 'didParse'))
     this.on('didDiffHighlight', dispatch.bind(this, 'didDiffHighlight'))
     this.on('didDiffPreview', dispatch.bind(this, 'didDiffPreview'))
+  }
+
+  postMessage({ event, data }) {
+    this.emit(event, data)
+  }
+
+  nextTick() {
+    const rq = window.requestIdleCallback || window.requestAnimationFrame
+    return new Promise(resolve => {
+      rq(() => resolve())
+    })
   }
 }

@@ -2,6 +2,10 @@
   "name": "markdown-palettes",
   "version": "1.0.0-dev.1",
   "description": "Markdown*Palettes: Markdown editor for the modern web.",
+  "module": "esm/index.js",
+  "files": [
+    "esm"
+  ],
   "scripts": {
     "build": "cross-env BABEL_ENV=node babel-node scripts/build.js",
     "dev": "cross-env BABEL_ENV=node babel-node scripts/dev.js",
@@ -39,14 +43,22 @@
   },
   "dependencies": {
     "@vue/web-component-wrapper": "1.2.x",
+    "browser-split": "0.0.1",
     "create-emotion": "9.2.x",
     "diff-match-patch": "1.0.x",
-    "emotion": "9.2.x",
+    "error": "^4.3.0",
+    "ev-store": "^7.0.0",
     "events": "3.0.x",
+    "global": "^4.3.0",
+    "is-object": "^1.0.1",
+    "next-tick": "^0.2.2",
     "remark-parse": "5.0.x",
-    "remark-vdom": "6.0.x",
     "unified": "7.0.x",
-    "virtual-dom": "2.1.x",
-    "vue": "2.5.x"
+    "vue": "2.5.x",
+    "x-is-array": "0.1.0",
+    "x-is-string": "0.1.0",
+    "hast-to-hyperscript": "^5.0.0",
+    "hast-util-sanitize": "^1.0.0",
+    "mdast-util-to-hast": "^3.0.0"
   }
 }
