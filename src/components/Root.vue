@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import EventEmitter from 'events'
 import DiffMatchPatch from 'diff-match-patch'
 import Container from './Container'
 import {
@@ -16,7 +15,7 @@ import {
   name as defaultThemeName,
   container as styleContainer,
 } from '../themes'
-import SyncServer from '../render/SyncServer'
+import Renderer from '../render/Renderer'
 
 const dmp = new DiffMatchPatch()
 
@@ -36,9 +35,13 @@ export default {
         className: defaultThemeClassName,
       }),
     },
-    renderServer: {
-      validator: server => !!server.postMessage,
-      default: () => new SyncServer(),
+    renderPort: {
+      validator: port => !!port.postMessage,
+      default: () => {
+        const chan = new MessageChannel()
+        new Renderer(chan.port1)
+        return chan.port2
+      },
     },
   },
   data() {
@@ -51,17 +54,19 @@ export default {
     source(val, oldVal) {
       if (val !== this.value) this.$emit('input', val)
       const patches = dmp.patch_make(oldVal, val)
-      this.renderServer.postMessage({ event: 'change', data: patches })
+      this.renderPort.postMessage({ event: 'change', data: patches })
     },
     value(val) {
       this.source = val
     },
-    renderServer: {
+    renderPort: {
       immediate: true,
-      handler(newServer, oldServer) {
-        if (oldServer) oldServer.onmessage = null
-        newServer.onmessage = ({ data: { event, data } }) =>
-          void this.renderServerEvents.emit(event, data)
+      handler(newPort, oldPort) {
+        if (oldPort) oldPort.onmessage = null
+        newPort.onmessage = ({ data: { event, data } }) =>
+          void this.renderEvents.dispatchEvent(
+            new CustomEvent(event, { detail: data })
+          )
       },
     },
   },
@@ -71,7 +76,7 @@ export default {
     }
   },
   created() {
-    this.renderServerEvents = new EventEmitter()
+    this.renderEvents = new EventTarget()
   },
   mounted() {
     this.$refs.root.appendChild(styleContainer.cloneNode(true))

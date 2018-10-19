@@ -14,8 +14,7 @@ export default {
   extends: Base,
   mounted() {
     const previewElem = this.$refs.preview
-    this.s.renderServerEvents.on('didDiffPreview', async function(patches) {
-      await Promise.resolve()
+    this.s.renderEvents.addEventListener('diffPv', ({ detail: patches }) => {
       patch(previewElem, patches)
     })
   },

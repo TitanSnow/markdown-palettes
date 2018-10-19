@@ -7,7 +7,7 @@
     <textarea
       v-model="s.source"
       class="editor-input"
-      @scroll.passive="scrollTop = $event.target.scrollTop, scrollLeft = $event.target.scrollLeft"
+      @scroll.passive="syncScroll({scrollTop: $event.target.scrollTop, scrollLeft: $event.target.scrollLeft})"
     />
   </div>
 </template>
@@ -23,26 +23,19 @@ export default {
     scrollTop: 0,
     scrollLeft: 0,
   }),
-  watch: {
-    scrollTop: 'syncScroll',
-    scrollLeft: 'syncScroll',
-  },
   mounted() {
     const viewElem = this.$refs.view
-    this.s.renderServerEvents.on(
-      'didDiffHighlight',
-      async function(patches) {
-        await Promise.resolve()
-        patch(viewElem, patches)
-        this.syncScroll()
-      }.bind(this)
-    )
+    this.s.renderEvents.addEventListener('diffHl', ({ detail: patches }) => {
+      patch(viewElem, patches)
+      this.syncScroll()
+    })
   },
   methods: {
-    syncScroll() {
+    syncScroll(pos) {
       const viewElem = this.$refs.view
-      viewElem.scrollTop = this.scrollTop
-      viewElem.scrollLeft = this.scrollLeft
+      pos = pos || this
+      viewElem.scrollTop = this.scrollTop = pos.scrollTop
+      viewElem.scrollLeft = this.scrollLeft = pos.scrollLeft
     },
   },
 }

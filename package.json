@@ -48,17 +48,16 @@
     "diff-match-patch": "1.0.x",
     "error": "^4.3.0",
     "ev-store": "^7.0.0",
-    "events": "3.0.x",
     "global": "^4.3.0",
+    "hast-to-hyperscript": "^5.0.0",
+    "hast-util-sanitize": "^1.0.0",
     "is-object": "^1.0.1",
+    "mdast-util-to-hast": "^3.0.0",
     "next-tick": "^0.2.2",
     "remark-parse": "5.0.x",
     "unified": "7.0.x",
     "vue": "2.5.x",
     "x-is-array": "0.1.0",
-    "x-is-string": "0.1.0",
-    "hast-to-hyperscript": "^5.0.0",
-    "hast-util-sanitize": "^1.0.0",
-    "mdast-util-to-hast": "^3.0.0"
+    "x-is-string": "0.1.0"
   }
 }
