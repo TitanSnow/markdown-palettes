@@ -53,17 +53,23 @@ export default css`
     overflow: auto;
   }
   .editor-view {
-    .heading {
+    .md-heading {
       font-weight: bold;
       color: blue;
     }
-    .link {
+    .md-link {
       color: rgb(0, 0, 238);
       color: -webkit-link;
       text-decoration: underline;
     }
-    .image {
+    .md-image {
       color: green;
+    }
+    .md-emphasis {
+      font-style: italic;
+    }
+    .md-strong {
+      font-weight: bold;
     }
   }
 

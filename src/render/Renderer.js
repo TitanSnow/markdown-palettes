@@ -5,6 +5,7 @@ import DiffMatchPatch from 'diff-match-patch'
 import diff from '../vdom/diff'
 import VNode from '../vdom/vnode/vnode'
 import VText from '../vdom/vnode/vtext'
+import fromPairs from 'lodash.frompairs'
 
 const dmp = new DiffMatchPatch()
 const parser = unified().use(remarkParser)
@@ -38,7 +39,72 @@ export default class Renderer {
     return diff(oldTree, newTree)
   }
   renderHlTree(ast) {
-    return new VNode('div', {}, [new VText(this.source), new VText('\n')])
+    const table = ['strong', 'emphasis', ['heading', 'depth'], 'link', 'image']
+    const list = table.map(item => (Array.isArray(item) ? item[0] : item))
+    const src = this.source
+    const createNode = (tag, attrs, start, end) => ({
+      tag,
+      attrs,
+      start,
+      end,
+      children: [],
+    })
+    const root = createNode('div', {}, 0, src.length)
+    let cur = root
+    const visit = node => {
+      const { type, children = [] } = node
+      const hit = list.includes(type)
+      let bk
+      if (hit) {
+        const {
+          position: {
+            start: { offset: start },
+            end: { offset: end },
+          },
+        } = node
+        const tableItem = table[list.indexOf(type)]
+        const keepKeys = Array.isArray(tableItem) ? tableItem.slice(1) : []
+        cur = (bk = cur).children[
+          cur.children.push(
+            createNode(
+              'span',
+              {
+                className: 'md-' + type,
+                dataset: fromPairs(keepKeys.map(k => [k, node[k]])),
+              },
+              start,
+              end
+            )
+          ) - 1
+        ]
+      }
+      for (const child of children) visit(child)
+      if (hit) {
+        cur = bk
+      }
+    }
+    visit(ast)
+    const build = node => {
+      const { tag, attrs, children } = node
+      return new VNode(tag, attrs, [
+        ...children.flatMap((child, idx) => {
+          const elem = build(child)
+          const preText = new VText(
+            src.slice(
+              idx === 0 ? node.start : children[idx - 1].end,
+              child.start
+            )
+          )
+          return [preText, elem]
+        }),
+        new VText(
+          children.length
+            ? src.slice(children[children.length - 1].end, node.end)
+            : src.slice(node.start, node.end)
+        ),
+      ])
+    }
+    return build(root)
   }
   renderPvTree(ast) {
     return new VNode('div', {}, [vdomifier.stringify(ast)])
