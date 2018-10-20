@@ -5,6 +5,7 @@ import DiffMatchPatch from 'diff-match-patch'
 import diff from '../vdom/diff'
 import VNode from '../vdom/vnode/vnode'
 import VText from '../vdom/vnode/vtext'
+import { marcoTick } from '../utils'
 import fromPairs from 'lodash.frompairs'
 
 const dmp = new DiffMatchPatch()
@@ -16,6 +17,7 @@ export default class Renderer {
     this.source = ''
     this.hlTree = this.getInitialHlTree()
     this.pvTree = this.getInitialPvTree()
+    this._renderScheduled = false
     ;(this.port = port).onmessage = this.onmessage.bind(this)
   }
   getInitialHlTree() {
@@ -28,9 +30,17 @@ export default class Renderer {
     switch (event) {
       case 'change':
         this.source = dmp.patch_apply(data, this.source)[0]
-        this.render()
+        this.scheduleRender()
         break
     }
+  }
+  scheduleRender() {
+    if (this._renderScheduled) return
+    this._renderScheduled = true
+    marcoTick().then(() => {
+      this._renderScheduled = false
+      this.render()
+    })
   }
   parse(src) {
     return parser.parse(src)
@@ -41,7 +51,7 @@ export default class Renderer {
   renderHlTree(ast) {
     const table = ['strong', 'emphasis', ['heading', 'depth'], 'link', 'image']
     const list = table.map(item => (Array.isArray(item) ? item[0] : item))
-    const src = this.source
+    const src = this.source + '\n'
     const createNode = (tag, attrs, start, end) => ({
       tag,
       attrs,
