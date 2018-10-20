@@ -2,6 +2,7 @@
 /esm
 /dist
 /temp
+/umd.js
 /.cache
 shrinkwrap.yaml
 yarn.lock
